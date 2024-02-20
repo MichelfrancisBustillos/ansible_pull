@@ -1,0 +1,11 @@
+- name: copy bashrc
+  copy:
+    src: files/.bashrc
+    dst: /home/michel/.bashrc
+    owner: michel
+
+- name: copy bash_aliases
+  copy:
+    src: files/.bash_aliases
+    dst: /home/michel/.bash_aliases
+    owner: michel
