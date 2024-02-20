@@ -5,7 +5,7 @@
   pre_tasks:
     - name: update repos
       apt:
-        update_cache: yes
+        update_cache: true
       changed_when: False
   
   tasks:
