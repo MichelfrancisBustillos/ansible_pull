@@ -4,3 +4,4 @@
       - libsasl2-modules
       - mailutils
       - nano
+      - cron
