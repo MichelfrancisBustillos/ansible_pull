@@ -9,4 +9,4 @@
       changed_when: False
   
   tasks:
-    - include: tasks\initial_packages.yml
+    - include: tasks/initial_packages.yml
