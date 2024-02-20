@@ -9,6 +9,7 @@
       changed_when: False
   
   tasks:
+    - include: tasks/initial_packages.yml
     - include: tasks/create_users.yml
     - include: tasks/cron.yml
-    - include: tasks/initial_packages.yml
+    
