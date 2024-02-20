@@ -1,0 +1,6 @@
+- name: Install Packages
+  apt:
+    name:
+      - libsasl2-modules
+      - mailutils
+      - nano
