@@ -14,7 +14,7 @@
 - name: create michel
   user:
     name: michel
-    password: "{{ 'shadow' | password_hash('sha512', 'i+(9rtj-.h3p') }}"
+    password: "{{ 'shadow' | password_hash('sha512', 'MnFBb7vfYNYt') }}"
 
 - name: copy sudoers_michel
   copy:
