@@ -1,0 +1,22 @@
+- name: Copy sasl_passwd
+  copy:
+    src: files/sasl_passwd
+    dest: /etc/postfix/sasl_passwd
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Copy main.cf
+  copy:
+    src: files/main.cf
+    dest: /etc/postfix/main.cf
+
+- name: Hash sasl_passwd
+  command:
+    postmap hash:/etc/postfix/sasl_passwd
+
+- name: Restart and Enable Postfix
+  service:
+    name: Postfix
+    state: restarted
+    enabled: yes
