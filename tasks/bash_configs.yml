@@ -4,7 +4,7 @@
     dest: /home/michel/.bashrc
     owner: michel
     force: true
-    mode: rw-r--r--
+    mode: u=rw,go=r
 
 - name: Copy bash_aliases
   ansible.builtin.copy:
@@ -12,7 +12,7 @@
     dest: /home/michel/.bash_aliases
     owner: michel
     force: true
-    mode: rw-r--r--
+    mode: u=rw,go=r
 
 - name: No MOTD on SSH login
   ansible.builtin.copy:
@@ -20,4 +20,4 @@
     dest: /home/michel/.hushlogin
     force: false
     owner: michel
-    mode: rw-r--r--
+    mode: u=rw,go=r

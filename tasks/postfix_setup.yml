@@ -4,12 +4,13 @@
     dest: /etc/postfix/sasl_passwd
     owner: root
     group: root
-    mode: rw-------
+    mode: u=rw,go=
 
 - name: Copy main.cf
   ansible.builtin.copy:
     src: files/main.cf
     dest: /etc/postfix/main.cf
+    mode: u=rw,go=r
 
 - name: Hash sasl_passwd
   ansible.builtin.command:

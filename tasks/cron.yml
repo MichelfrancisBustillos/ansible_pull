@@ -1,4 +1,4 @@
-- name: install cron job (ansible-pull)
+- name: Install cron job (ansible-pull)
   ansible.builtin.cron:
     user: ansible
     name: "ansible provision"

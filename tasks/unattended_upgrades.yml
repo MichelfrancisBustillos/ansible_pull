@@ -2,12 +2,14 @@
   ansible.builtin.copy:
     src: files/50unattended-upgrades
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
-    force: True
+    force: true
+    mode: u=rw,go=r
 
 - name: Copy auto-upgrades config
   ansible.builtin.copy:
     src: files/20auto-upgrades
     dest: /etc/apt/apt.conf.d/20auto-upgrades
+    mode: u=rw,go=r
 
 - name: Dpkg reconfigure
   ansible.builtin.command:
