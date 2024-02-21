@@ -16,7 +16,7 @@ Unattended-Upgrade::Allowed-Origins {
 //      "${distro_id}:${distro_codename}-proposed";
 //      "${distro_id}:${distro_codename}-backports";
         "Docker:${distro_codename}";
-        "Proxmox:stable";
+        "pve-no-subscription:stable";
 };
 
 // Python regular expressions, matching packages to exclude from upgrading

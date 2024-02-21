@@ -2,6 +2,7 @@
   copy:
     src: files/50unattended-upgrades
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
+    force: True
 
 - name: Copy auto-upgrades config
   copy:
