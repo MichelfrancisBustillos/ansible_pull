@@ -57,6 +57,7 @@ alias pip='pip3'
 alias loadbash='source ~/.bash_profile'
 lc() { cd "$@" && ls; }
 alias cd='lc'
+alias ansiblepull="sudo ansible-pull -U https://github.com/MichelfrancisBustillos/ansible_pull.git"
 
 #Tail all logs in /var/log
 alias logs="find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f"

@@ -7,3 +7,4 @@
       - cron
       - sudo
       - neofetch
+      - unattended-upgrades

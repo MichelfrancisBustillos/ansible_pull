@@ -9,3 +9,10 @@
     src: files/.bash_aliases
     dest: /home/michel/.bash_aliases
     owner: michel
+
+- name: No MOTD on SSH login
+  copy:
+    content: ""
+    dest: /home/michel/.hushlogin
+    force: False
+    owner: michel
