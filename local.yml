@@ -17,6 +17,3 @@
     - include_tasks: tasks/unattended_upgrades.yml
     - include_tasks: tasks/netdata_deploy.yml
    
-- import_playbook: playbooks/netdata_install.yml
-- import_playbook: playbooks/netdata_configure.yml
-- import_playbook: playbooks/netdat_claim.yml
