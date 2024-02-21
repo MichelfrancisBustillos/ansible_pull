@@ -13,10 +13,10 @@
 
 - name: Hash sasl_passwd
   command:
-    postmap hash:/etc/postfix/sasl_passwd
+    /usr/sbin/postmap hash:/etc/postfix/sasl_passwd
 
 - name: Restart and Enable Postfix
   service:
-    name: Postfix
+    name: postfix
     state: restarted
     enabled: yes
