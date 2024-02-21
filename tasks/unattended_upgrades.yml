@@ -3,6 +3,11 @@
     src: files/50unattended-upgrades
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
 
+- name: Copy auto-upgrades config
+  copy:
+    src: files/20auto-upgrades
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+
 - name: Dpkg reconfigure
       command:
         cmd: dpkg-reconfigure -f noninteractive unattended-upgrades
