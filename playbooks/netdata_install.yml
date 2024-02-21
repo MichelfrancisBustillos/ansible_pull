@@ -1,6 +1,7 @@
 ---
 - name: Install Netdata
-  hosts: all
+  hosts: localhost
+  connection: localhost
   vars_files:
     - "vars/netdata.yml"
   become: true
