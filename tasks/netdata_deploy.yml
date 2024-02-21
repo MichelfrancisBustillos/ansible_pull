@@ -1,0 +1,4 @@
+- name: Copy vars to localhost
+  copy:
+    src: vars/netdata.yml
+    dest: vars/netdata.yml
