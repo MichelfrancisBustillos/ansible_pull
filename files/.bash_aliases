@@ -54,10 +54,10 @@ alias search='set -f;search';search() { find . ${2:+-name "$2"} -type f -print0 
 alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias python='python3'
 alias pip='pip3'
-alias loadbash='source ~/.bash_profile'
+alias loadbash='source ~/.bashrc'
 lc() { cd "$@" && ls; }
 alias cd='lc'
-alias ansiblepull="sudo ansible-pull -U https://github.com/MichelfrancisBustillos/ansible_pull.git"
+alias pullansible='sudo ansible-pull -U https://github.com/MichelfrancisBustillos/ansible_pull.git'
 
 #Tail all logs in /var/log
 alias logs="find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f"
