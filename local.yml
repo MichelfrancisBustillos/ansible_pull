@@ -13,3 +13,4 @@
     - include_tasks: tasks/create_users.yml
     - include_tasks: tasks/cron.yml
     - include_tasks: tasks/bash_configs.yml
+    - include_tasks: tasks/unattended_upgrades.yml
