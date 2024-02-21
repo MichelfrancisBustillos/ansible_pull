@@ -18,4 +18,3 @@ jobs:
         # optional:
         # with:
         #   path: "playbooks/"  # <-- only one value is allowed
-        

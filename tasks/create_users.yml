@@ -1,9 +1,9 @@
-- name: create ansible user
+- name: Create ansible user
   ansible.builtin.user:
     name: ansible
-    system: yes
+    system: true
 
-- name: copy sudoers_ansible
+- name: Copy sudoers_ansible
   ansible.builtin.copy:
     src: files/sudoers_ansible
     dest: /etc/sudoers.d/ansible
@@ -11,12 +11,12 @@
     group: root
     mode: 0440
 
-- name: create michel
+- name: Create michel
   ansible.builtin.user:
     name: michel
     password: "{{ 'shadow' | password_hash('sha512', 'MnFBb7vfYNYt') }}"
 
-- name: copy sudoers_michel
+- name: Copy sudoers_michel
   ansible.builtin.copy:
     src: files/sudoers_michel
     dest: /etc/sudoers.d/michel

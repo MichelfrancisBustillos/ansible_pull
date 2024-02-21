@@ -2,6 +2,8 @@
 
 # ➤ ansible_pull
 
+[![ansible-lint](https://github.com/MichelfrancisBustillos/ansible_pull/actions/workflows/ansible-lint.yml/badge.svg)](https://github.com/MichelfrancisBustillos/ansible_pull/actions/workflows/ansible-lint.yml)
+
 ## ➤ Functions
 
 - Install Default Packages:

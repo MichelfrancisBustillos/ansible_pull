@@ -19,5 +19,4 @@
   ansible.builtin.service:
     name: postfix
     state: restarted
-    enabled: yes
-    
+    enabled: true

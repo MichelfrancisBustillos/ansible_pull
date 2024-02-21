@@ -4,17 +4,24 @@
   become: true
 
   pre_tasks:
-    - name: update repos
+    - name: Update repos
       ansible.builtin.apt:
         update_cache: true
       changed_when: false
-  
+
   tasks:
-    - ansible.builtin.include_tasks: tasks/initial_packages.yml
-    - ansible.builtin.include_tasks: tasks/create_users.yml
-    - ansible.builtin.include_tasks: tasks/cron.yml
-    - ansible.builtin.include_tasks: tasks/bash_configs.yml
-    - ansible.builtin.include_tasks: tasks/postfix_setup.yml
-    - ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
-    - ansible.builtin.include_tasks: tasks/netdata_deploy.yml
+    - name: Install initial packages
+      ansible.builtin.include_tasks: tasks/initial_packages.yml
+    - name: Create users michel and ansible
+      ansible.builtin.include_tasks: tasks/create_users.yml
+    - name: Install ansible cron task
+      ansible.builtin.include_tasks: tasks/cron.yml
+    - name: Install bashrc and bash_aliases
+      ansible.builtin.include_tasks: tasks/bash_configs.yml
+    - name: Setup Postfix
+      ansible.builtin.include_tasks: tasks/postfix_setup.yml
+    - name: Setup Unattended Upgrades
+      ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
+    - name: Deploy NetData
+      ansible.builtin.include_tasks: tasks/netdata_deploy.yml
    

@@ -1,5 +1,5 @@
 - name: install cron job (ansible-pull)
-  cron:
+  ansible.builtin.cron:
     user: ansible
     name: "ansible provision"
     hour: "*/6"
