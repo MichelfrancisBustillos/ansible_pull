@@ -120,3 +120,4 @@ if ! shopt -oq posix; then
 fi
 
 PS1='\[\e[38;5;35m\]\u\[\e[0m\]@\[\e[38;5;35m\]\H\[\e[0m\]:\[\e[38;5;27m\]\w\n\[\e[0m\]\$ '
+neofetch
