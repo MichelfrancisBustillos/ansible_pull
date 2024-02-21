@@ -3,12 +3,14 @@
     src: files/.bashrc
     dest: /home/michel/.bashrc
     owner: michel
+    force: True
 
 - name: copy bash_aliases
   copy:
     src: files/.bash_aliases
     dest: /home/michel/.bash_aliases
     owner: michel
+    force: True
 
 - name: No MOTD on SSH login
   copy:
