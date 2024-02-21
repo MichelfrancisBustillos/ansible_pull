@@ -13,9 +13,6 @@
   command:
     cmd: dpkg-reconfigure -f noninteractive unattended-upgrades
   register: dpkg_reconfigure_unattended_upgrades
-  when:
-    - unattended_upgrades_config_set.changed or
-      unattended_upgrades_settings_set.changed
 
 - name: Enable systemd service
   systemd:
