@@ -1,19 +1,20 @@
-- hosts: localhost
+- name: Master Playbook
+  hosts: localhost
   connection: localhost
   become: true
 
   pre_tasks:
     - name: update repos
-      apt:
+      ansible.builtin.apt:
         update_cache: true
-      changed_when: False
+      changed_when: false
   
   tasks:
-    - include_tasks: tasks/initial_packages.yml
-    - include_tasks: tasks/create_users.yml
-    - include_tasks: tasks/cron.yml
-    - include_tasks: tasks/bash_configs.yml
-    - include_tasks: tasks/postfix_setup.yml
-    - include_tasks: tasks/unattended_upgrades.yml
-    - include_tasks: tasks/netdata_deploy.yml
+    - ansible.builtin.include_tasks: tasks/initial_packages.yml
+    - ansible.builtin.include_tasks: tasks/create_users.yml
+    - ansible.builtin.include_tasks: tasks/cron.yml
+    - ansible.builtin.include_tasks: tasks/bash_configs.yml
+    - ansible.builtin.include_tasks: tasks/postfix_setup.yml
+    - ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
+    - ansible.builtin.include_tasks: tasks/netdata_deploy.yml
    

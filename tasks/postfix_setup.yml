@@ -1,5 +1,5 @@
 - name: Copy sasl_passwd
-  copy:
+  ansible.builtin.copy:
     src: files/sasl_passwd
     dest: /etc/postfix/sasl_passwd
     owner: root
@@ -7,16 +7,17 @@
     mode: 0600
 
 - name: Copy main.cf
-  copy:
+  ansible.builtin.copy:
     src: files/main.cf
     dest: /etc/postfix/main.cf
 
 - name: Hash sasl_passwd
-  command:
+  ansible.builtin.command:
     /usr/sbin/postmap hash:/etc/postfix/sasl_passwd
 
 - name: Restart and Enable Postfix
-  service:
+  ansible.builtin.service:
     name: postfix
     state: restarted
     enabled: yes
+    
