@@ -1,10 +1,6 @@
 <!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#ansible_pull)
 
 # ➤ ansible_pull
-
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#functions)
 
 ## ➤ Functions
 
@@ -27,16 +23,10 @@
 - Enable regular ansible syncs via Cron
   - Ansible pull command is run every 6 hours and executed if repository has been changed.
 
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#requirements)
-
 ## ➤ Requirements
 
 - ansible
 - git
-
-
-[![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#installation)
 
 ## ➤ Installation
 
