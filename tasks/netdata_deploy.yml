@@ -1,0 +1,3 @@
+- name: Install Netdata
+  command:
+    cmd: curl https://get.netdata.cloud/kickstart.sh > /tmp/netdata-kickstart.sh && sh /tmp/netdata-kickstart.sh --nightly-channel --claim-token a3BIG_DKGw5w_MBpPWDmzrwH-UZQSOCuGvy1n5hkgxH2wR13As0Pzeux2DgHeNkRfhEvsjGDUOyh7gbgDA4bXdbf3Ksj8CRgfMIq3apT3HOFize5I50vO6jYz5SbbhLQCJ5y95c --claim-rooms ca2ddf95-7273-4233-b287-7f775b29178d --claim-url https://app.netdata.cloud
