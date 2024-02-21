@@ -4,17 +4,19 @@
 // from non-security sources (e.g. chromium). By allowing the release
 // pocket these get automatically pulled in.
 Unattended-Upgrade::Allowed-Origins {
-	"${distro_id}:${distro_codename}";
-	"${distro_id}:${distro_codename}-security";
-	// Extended Security Maintenance; doesn't necessarily exist for
-	// every release and this system may not have it installed, but if
-	// available, the policy for updates is such that unattended-upgrades
-	// should also install from here by default.
-	"${distro_id}ESMApps:${distro_codename}-apps-security";
-	"${distro_id}ESM:${distro_codename}-infra-security";
-//	"${distro_id}:${distro_codename}-updates";
-//	"${distro_id}:${distro_codename}-proposed";
-//	"${distro_id}:${distro_codename}-backports";
+        "${distro_id}:${distro_codename}";
+        "${distro_id}:${distro_codename}-security";
+        // Extended Security Maintenance; doesn't necessarily exist for
+        // every release and this system may not have it installed, but if
+        // available, the policy for updates is such that unattended-upgrades
+        // should also install from here by default.
+        "${distro_id}ESMApps:${distro_codename}-apps-security";
+        "${distro_id}ESM:${distro_codename}-infra-security";
+        "${distro_id}:${distro_codename}-updates";
+//      "${distro_id}:${distro_codename}-proposed";
+//      "${distro_id}:${distro_codename}-backports";
+        "origin=Proxmox,codename=${distro_codename},label=Proxmox Debian Repository";
+        "Docker:${distro_codename}";
 };
 
 // Python regular expressions, matching packages to exclude from upgrading
@@ -44,7 +46,7 @@ Unattended-Upgrade::Package-Blacklist {
 Unattended-Upgrade::DevRelease "auto";
 
 // This option allows you to control if on a unclean dpkg exit
-// unattended-upgrades will automatically run 
+// unattended-upgrades will automatically run
 //   dpkg --force-confold --configure -a
 // The default is true, to ensure updates keep getting installed
 //Unattended-Upgrade::AutoFixInterruptedDpkg "true";
@@ -70,13 +72,13 @@ Unattended-Upgrade::DevRelease "auto";
 // If empty or unset then no email is sent, make sure that you
 // have a working mail setup on your system. A package that provides
 // 'mailx' must be installed. E.g. "user@example.com"
-//Unattended-Upgrade::Mail "";
+Unattended-Upgrade::Mail "kotbe2hiax@pomail.net";
 
 // Set this value to one of:
 //    "always", "only-on-error" or "on-change"
 // If this is not set, then any legacy MailOnlyOnError (boolean) value
 // is used to chose between "only-on-error" and "on-change"
-//Unattended-Upgrade::MailReport "on-change";
+Unattended-Upgrade::MailReport "on-change";
 
 // Remove unused automatically installed kernel-related packages
 // (kernel images, kernel headers and kernel version locked tools).
@@ -87,7 +89,7 @@ Unattended-Upgrade::DevRelease "auto";
 
 // Do automatic removal of unused packages after the upgrade
 // (equivalent to apt-get autoremove)
-//Unattended-Upgrade::Remove-Unused-Dependencies "false";
+Unattended-Upgrade::Remove-Unused-Dependencies "false";
 
 // Automatically reboot *WITHOUT CONFIRMATION* if
 //  the file /var/run/reboot-required is found after the upgrade
@@ -107,7 +109,7 @@ Unattended-Upgrade::DevRelease "auto";
 //Acquire::http::Dl-Limit "70";
 
 // Enable logging to syslog. Default is False
-// Unattended-Upgrade::SyslogEnable "false";
+Unattended-Upgrade::SyslogEnable "true";
 
 // Specify syslog facility. Default is daemon
 // Unattended-Upgrade::SyslogFacility "daemon";
