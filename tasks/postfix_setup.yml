@@ -4,7 +4,7 @@
     dest: /etc/postfix/sasl_passwd
     owner: root
     group: root
-    mode: 0600
+    mode: rw-------
 
 - name: Copy main.cf
   ansible.builtin.copy:

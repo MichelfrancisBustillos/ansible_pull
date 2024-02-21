@@ -1,16 +1,18 @@
-- name: copy bashrc
+- name: Copy bashrc
   ansible.builtin.copy:
     src: files/.bashrc
     dest: /home/michel/.bashrc
     owner: michel
     force: true
+    mode: rw-r--r--
 
-- name: copy bash_aliases
+- name: Copy bash_aliases
   ansible.builtin.copy:
     src: files/.bash_aliases
     dest: /home/michel/.bash_aliases
     owner: michel
     force: true
+    mode: rw-r--r--
 
 - name: No MOTD on SSH login
   ansible.builtin.copy:
@@ -18,3 +20,4 @@
     dest: /home/michel/.hushlogin
     force: false
     owner: michel
+    mode: rw-r--r--

@@ -24,4 +24,3 @@
       ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
     - name: Deploy NetData
       ansible.builtin.include_tasks: tasks/netdata_deploy.yml
-   
