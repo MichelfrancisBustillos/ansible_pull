@@ -14,14 +14,14 @@
     owner: root
     group: root
     mode: u=rw,go=
-    force: false
+    force: true
 
 - name: Copy main.cf
   ansible.builtin.copy:
     src: files/main.cf
     dest: /etc/postfix/main.cf
     mode: u=rw,go=r
-    force: false
+    force: true
 
 - name: Hash sasl_passwd
   ansible.builtin.command: /usr/sbin/postmap hash:/etc/postfix/sasl_passwd

@@ -3,7 +3,7 @@
     dest: /tmp/netdata-kickstart.sh
     url: https://get.netdata.cloud/kickstart.sh
     mode: a=rwx
-    force: false
+    force: true
 
 - name: Install NetData
   ansible.builtin.command: |
@@ -14,4 +14,4 @@
     --claim-url https://app.netdata.cloud
   register: netdata_result
   when: not "'netdata' in ansible_facts.packages"
-  changed_when: "'Failed to claim node because the Cloud thinks it is already claimed.' not in netdata_result.rc"
+  changed_when: "'Failed to claim node because the Cloud thinks it is already claimed.' not in netdata_result.stdout"

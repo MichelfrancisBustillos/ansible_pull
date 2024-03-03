@@ -3,7 +3,7 @@
     url: https://tailscale.com/install.sh
     dest: /tmp/tailscale_install.sh
     mode: a=rwx
-    force: false
+    force: true
 
 - name: Install Tailscale
   ansible.builtin.command: bash /tmp/tailscale_install.sh
@@ -14,7 +14,3 @@
   ansible.builtin.command: sudo tailscale up --authkey tskey-auth-kjWyuL5CNTRL-3MubpvbhsZSXeTWuwB2SZSECct7ddH6U4 --ssh
   register: tailscale_result
   changed_when: tailscale_result.stdout != ""
-
-- name: Enable Tailscale SSH
-  ansible.builtin.command: sudo tailscale set --ssh
-  changed_when: false

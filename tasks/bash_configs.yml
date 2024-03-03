@@ -24,6 +24,6 @@
   ansible.builtin.copy:
     content: ""
     dest: /home/michel/.hushlogin
-    force: false
+    force: true
     owner: michel
     mode: u=rw,go=r
