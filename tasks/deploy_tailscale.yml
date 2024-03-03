@@ -1,5 +1,8 @@
 - name: Install Tailscale
-  ansible.builtin.command: |
-    curl -fsSL https://tailscale.com/install.sh | sh
-    sudo tailscale up --authkey tskey-auth-kjWyuL5CNTRL-3MubpvbhsZSXeTWuwB2SZSECct7ddH6U4
-    sudo tailscale set --ssh
+  ansible.builtin.command: curl -fsSL https://tailscale.com/install.sh | sh
+
+- name: Auth and Enable Tailscale
+  ansible.builtin.command: sudo tailscale up --authkey tskey-auth-kjWyuL5CNTRL-3MubpvbhsZSXeTWuwB2SZSECct7ddH6U4
+
+- name: Enable Tailscale SSH
+  ansible.builtin.command: sudo tailscale set --ssh
