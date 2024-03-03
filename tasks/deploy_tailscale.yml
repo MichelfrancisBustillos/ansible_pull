@@ -8,7 +8,7 @@
 - name: Install Tailscale
   ansible.builtin.command: bash /tmp/tailscale_install.sh
   register: result
-  changed_when: "'0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.' not in result.rc"
+  changed_when: "'0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.' not in result.stdout"
 
 - name: Auth and Enable Tailscale
   ansible.builtin.command: sudo tailscale up --authkey tskey-auth-kjWyuL5CNTRL-3MubpvbhsZSXeTWuwB2SZSECct7ddH6U4
