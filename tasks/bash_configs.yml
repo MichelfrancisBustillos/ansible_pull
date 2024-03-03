@@ -1,8 +1,8 @@
-- name: Install Packages
+- name: Install Neofetch
   ansible.builtin.apt:
     name:
       - neofetch
-    when: not "'neofetch' in ansible_facts.packages"
+  when: not "'neofetch' in ansible_facts.packages"
 
 - name: Copy bashrc
   ansible.builtin.copy:
