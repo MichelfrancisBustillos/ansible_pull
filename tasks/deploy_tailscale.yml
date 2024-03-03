@@ -1,4 +1,4 @@
-- name: Download Tailscale Install Scipt
+- name: Download Tailscale Install Script
   ansible.builtin.get_url:
     url: https://tailscale.com/install.sh
     dest: /tmp/tailscale_install.sh
@@ -9,10 +9,11 @@
   ansible.builtin.command: bash /tmp/tailscale_install.sh
   register: result
   changed_when: "'0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.' not in result.rc"
-
   
 - name: Auth and Enable Tailscale
   ansible.builtin.command: sudo tailscale up --authkey tskey-auth-kjWyuL5CNTRL-3MubpvbhsZSXeTWuwB2SZSECct7ddH6U4
+  register: tailscale_result
+  changed_when: tailscale_result.rc != ""
 
 - name: Enable Tailscale SSH
   ansible.builtin.command: sudo tailscale set --ssh
