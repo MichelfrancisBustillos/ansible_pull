@@ -1,6 +1,12 @@
-- name: Install Tailscale
-  ansible.builtin.command: curl -fsSL https://tailscale.com/install.sh | sh
+- name: Download Tailscale Install Scipt
+  ansible.builtin.get_url: 
+    url: https://tailscale.com/install.sh
+    dest: /tmp/tailscale_install.sh
+    mode: a=rwx
 
+- name: Install Tailscale
+  ansible.builtin.command: bash /tmp/tailscale_install.sh
+  
 - name: Auth and Enable Tailscale
   ansible.builtin.command: sudo tailscale up --authkey tskey-auth-kjWyuL5CNTRL-3MubpvbhsZSXeTWuwB2SZSECct7ddH6U4
 
