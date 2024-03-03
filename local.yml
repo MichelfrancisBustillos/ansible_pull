@@ -24,3 +24,5 @@
       ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
     - name: Deploy NetData
       ansible.builtin.include_tasks: tasks/netdata_deploy.yml
+    - name: Deploy Tailscale
+      ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
