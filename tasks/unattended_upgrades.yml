@@ -18,9 +18,9 @@
     mode: u=rw,go=r
 
 - name: Dpkg reconfigure
-  ansible.builtin.command:
-    cmd: dpkg-reconfigure -f noninteractive unattended-upgrades
+  ansible.builtin.command: dpkg-reconfigure -f noninteractive unattended-upgrades
   register: dpkg_reconfigure_unattended_upgrades
+  changed_when: dpkg_reconfigure_unattended_upgrades != ""
 
 - name: Enable systemd service
   ansible.builtin.systemd:

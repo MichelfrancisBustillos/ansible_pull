@@ -24,8 +24,8 @@
     force: false
 
 - name: Hash sasl_passwd
-  ansible.builtin.command:
-    /usr/sbin/postmap hash:/etc/postfix/sasl_passwd
+  ansible.builtin.command: /usr/sbin/postmap hash:/etc/postfix/sasl_passwd
+  changed_when: false
 
 - name: Restart and Enable Postfix
   ansible.builtin.service:

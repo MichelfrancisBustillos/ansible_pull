@@ -17,3 +17,4 @@
 
 - name: Enable Tailscale SSH
   ansible.builtin.command: sudo tailscale set --ssh
+  changed_when: false
