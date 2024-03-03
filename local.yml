@@ -27,7 +27,5 @@
       ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
     - name: Deploy NetData
       ansible.builtin.include_tasks: tasks/netdata_deploy.yml
-      when: "'netdata' not in ansible_facts.packages"
     - name: Deploy Tailscale
       ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
-      when: "'tailscale' not in ansible_facts.packages"
