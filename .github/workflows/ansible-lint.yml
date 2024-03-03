@@ -19,4 +19,4 @@ jobs:
         # with:
         #   path: "playbooks/"  # <-- only one value is allowed
         with:
-          args: "--exclude .github/workflows/ansible-lint.yaml"
+          args: "--exclude=.github/workflows/ansible-lint.yaml"
