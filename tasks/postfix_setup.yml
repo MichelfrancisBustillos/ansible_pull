@@ -1,3 +1,12 @@
+- name: Install Packages
+  ansible.builtin.apt:
+    name:
+      - libsasl2-modules
+      - mailutils
+  when:
+    - not "'libsasl2-modules' in ansible_facts.packages"
+    - not "'mailutils' in ansible_facts.packages"
+
 - name: Copy sasl_passwd
   ansible.builtin.copy:
     src: files/sasl_passwd
@@ -5,12 +14,14 @@
     owner: root
     group: root
     mode: u=rw,go=
+    force: false
 
 - name: Copy main.cf
   ansible.builtin.copy:
     src: files/main.cf
     dest: /etc/postfix/main.cf
     mode: u=rw,go=r
+    force: false
 
 - name: Hash sasl_passwd
   ansible.builtin.command:

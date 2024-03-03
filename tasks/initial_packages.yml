@@ -1,10 +1,5 @@
 - name: Install Packages
   ansible.builtin.apt:
     name:
-      - libsasl2-modules
-      - mailutils
       - nano
-      - cron
       - sudo
-      - neofetch
-      - unattended-upgrades
