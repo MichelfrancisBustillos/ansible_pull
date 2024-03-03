@@ -13,7 +13,7 @@
 - name: Auth and Enable Tailscale
   ansible.builtin.command: sudo tailscale up --authkey tskey-auth-kjWyuL5CNTRL-3MubpvbhsZSXeTWuwB2SZSECct7ddH6U4
   register: tailscale_result
-  changed_when: tailscale_result.rc != ""
+  changed_when: tailscale_result.stdout != ""
 
 - name: Enable Tailscale SSH
   ansible.builtin.command: sudo tailscale set --ssh
