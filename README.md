@@ -24,6 +24,7 @@
   - Notifications sent to Pushover via email.
 - Enable regular ansible syncs via Cron
   - Ansible pull command is run every 6 hours and executed if repository has been changed.
+- Install and enable Tailscale w/ SSH
 
 ## ➤ Requirements
 
