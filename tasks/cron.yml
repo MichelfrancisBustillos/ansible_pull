@@ -8,5 +8,6 @@
   ansible.builtin.cron:
     user: ansible
     name: "ansible provision"
+    minute: "0"
     hour: "*/6"
     job: "/usr/bin/ansible-pull -o -U https://github.com/MichelfrancisBustillos/ansible_pull.git > /dev/null"
