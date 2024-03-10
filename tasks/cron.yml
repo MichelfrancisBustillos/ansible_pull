@@ -2,7 +2,6 @@
   ansible.builtin.apt:
     name:
       - cron
-  when: not "'cron' in ansible_facts.packages"
 
 - name: Install cron job (ansible-pull)
   ansible.builtin.cron:

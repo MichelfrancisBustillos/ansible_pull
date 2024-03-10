@@ -13,5 +13,4 @@
     --claim-rooms ca2ddf95-7273-4233-b287-7f775b29178d
     --claim-url https://app.netdata.cloud
   register: netdata_result
-  when: not "'netdata' in ansible_facts.packages"
   changed_when: "'Failed to claim node because the Cloud thinks it is already claimed.' not in netdata_result.stdout"

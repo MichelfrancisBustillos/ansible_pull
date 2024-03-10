@@ -2,7 +2,6 @@
   ansible.builtin.apt:
     name:
       - neofetch
-  when: not "'neofetch' in ansible_facts.packages"
 
 - name: Copy bashrc
   ansible.builtin.copy:

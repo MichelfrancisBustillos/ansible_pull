@@ -2,7 +2,6 @@
   ansible.builtin.apt:
     name:
       - unattended-upgrades
-  when: not "'unattended-upgrades' in ansible_facts.packages"
 
 - name: Copy unattended-upgrades config
   ansible.builtin.copy:

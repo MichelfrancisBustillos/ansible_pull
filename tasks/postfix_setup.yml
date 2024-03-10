@@ -3,9 +3,6 @@
     name:
       - libsasl2-modules
       - mailutils
-  when:
-    - not "'libsasl2-modules' in ansible_facts.packages"
-    - not "'mailutils' in ansible_facts.packages"
 
 - name: Copy sasl_passwd
   ansible.builtin.copy:

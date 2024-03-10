@@ -2,10 +2,8 @@
   ansible.builtin.apt:
     name:
       - nano
-  when: "'nano' not in ansible_facts.packages"
 
 - name: Install Sudo
   ansible.builtin.apt:
     name:
       - sudo
-  when: "'sudo' not in ansible_facts.packages"
