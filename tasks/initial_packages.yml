@@ -7,3 +7,8 @@
   ansible.builtin.apt:
     name:
       - sudo
+
+- name: Install micro
+  ansible.builtin.apt:
+    name:
+      - micro
