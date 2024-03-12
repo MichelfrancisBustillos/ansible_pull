@@ -61,3 +61,5 @@ alias ansiblepull='sudo ansible-pull -U https://github.com/MichelfrancisBustillo
 
 #Tail all logs in /var/log
 alias logs="find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f"
+
+alias nano='micro'

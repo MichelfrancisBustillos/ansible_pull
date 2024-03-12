@@ -1,14 +1,12 @@
-- name: Install Nano
+- name: Remove Nano
   ansible.builtin.apt:
-    name:
-      - nano
+    name: nano
+    state: absent
 
 - name: Install Sudo
   ansible.builtin.apt:
-    name:
-      - sudo
+    name: sudo
 
 - name: Install micro
   ansible.builtin.apt:
-    name:
-      - micro
+    name: micro
