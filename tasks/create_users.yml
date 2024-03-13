@@ -23,3 +23,11 @@
     owner: root
     group: root
     mode: ug=r,o=
+
+- name: Disable root login
+  lineinfile:
+    path: "{{ sshd_config_file }}"
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    backup: yes
+  notify: restart sshd
