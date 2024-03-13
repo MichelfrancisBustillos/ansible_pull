@@ -122,3 +122,8 @@ fi
 PS1='\[\e[38;5;35m\]\u\[\e[0m\]@\[\e[38;5;35m\]\H\[\e[0m\]:\[\e[38;5;27m\]\w\n\[\e[0m\]\$ '
 clear
 neofetch
+
+if [ -n "$PS1" ]
+then
+    printf '\033]0;%s@%s\007' "$(id -un)" "$(hostname)"
+fi
