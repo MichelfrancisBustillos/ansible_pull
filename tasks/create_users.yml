@@ -31,3 +31,10 @@
     line: "PermitRootLogin no"
     backup: true
   notify: restart sshd
+
+
+- handlers:
+    - name: Restart sshd
+      ansible.builtin.service:
+        name: ssh
+        state: restarted
