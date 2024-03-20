@@ -1,0 +1,26 @@
+- name: Playbook for Windows Systems
+  hosts: EndPoints
+
+  pre_tasks:
+    - name: Check for missing updates.
+      ansible.windows.win_updates:
+        state: searched
+    - name: Install Updates
+      win_updates:
+        category_names:
+        - CriticalUpdates
+        - SecurityUpdates
+        state: installed
+
+  tasks:
+    - name: Clean Up Start Menu
+      ansible.builtin.include_tasks: windows_tasks/start_menu.yml
+    - name: Enable Remote Desktop
+      ansible.builtin.include_tasks: windows_tasks/remote_desktop.yml
+    - name: Clean Up Taskbar
+      ansible.builtin.include_tasks: windows_tasks/taskbar.yml
+    - name: Install Chocolatey
+      ansible.builtin.include_tasks: windows_tasks/choco_install.yml
+    - name: Install Choco Packages
+      ansible.builtin.include_tasks: windows_tasks/choco_packages.yml
+

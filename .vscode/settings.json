@@ -1,6 +1,6 @@
 {
     "ansible.python.interpreterPath": "c:\\Users\\miche\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
-    "ansible.executionEnvironment.enabled": true,
+    "ansible.executionEnvironment.enabled": false,
     "yaml.schemas": {
         "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": "file:///c%3A/Users/miche/OneDrive/Documents/GitHub/ansible_pull/tasks/postfix_setup.yml"
     },
@@ -15,5 +15,10 @@
         "neofetch",
         "netdata",
         "Tailscale"
+    ],
+    "ansible.validation.lint.enabled": false,
+    "cSpell.enableFiletypes": [
+        "!yaml",
+        "ansible"
     ]
 }

@@ -1,0 +1,52 @@
+BareMetal:
+  hosts:
+    Blazewake:
+      ansible_host: blazewake.katoteros.org
+    Octane:
+      ansible_host: octane.katoteros.org
+    Runabout:
+      ansible_host: runabout.katoteros.org
+    Runamuck:
+      ansible_host: runamuck.katoteros.org
+VirtualMachines:
+  hosts:
+    Preceptor:
+      ansible_host: preceptor.katoteros.org
+    Watchdog:
+      ansible_host: watchdog.katoteros.org
+    AnsibleControl:
+      ansible_host: ansiblecontrol.katoteros.org
+    DevGUI:
+      ansible_host: devgui.katoteros.org
+    HASSIO:
+      ansible_host: homeassistant.katoteros.org
+Desktops:
+  hosts:
+    Michels-Desktop:
+      ansible_host: MICHELS-DESKTOP.katoteros.org
+    Trishas-Desktop:
+      ansible_host: TRISHAS-DESKTOP.katoteros.org
+    Kats-Desktop:
+      ansible_host: KATS-DESKTOP.katoteros.org
+Laptops:
+  hosts:
+    Trishas-Laptop:
+      ansible_host: Trisha-Laptop.katoteros.org
+    Michels-Laptop:
+      ansible_host: Michels-Laptop.katoteros.org
+    Kats-Laptop: 
+      ansible_host: Kats-Laptop.katoteros.org
+Testing:
+  hosts:
+    MICHELS-DESKTOP.katoteros.org
+    ansiblecontrol.katoteros.org
+    devgui.katoteros.org
+EndPoints:
+  children:
+    Desktops:
+    Laptops:
+  vars:
+    ansible_connection: winrm
+    ansible_user: KatoterosAdmin
+    ansible_password: neverland
+  
