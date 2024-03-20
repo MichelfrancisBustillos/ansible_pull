@@ -1,5 +1,5 @@
 - name: Playbook for Windows Systems
-  hosts: EndPoints
+  hosts: Testing
 
   pre_tasks:
     - name: Check for missing updates.
