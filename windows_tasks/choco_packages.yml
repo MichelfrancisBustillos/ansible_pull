@@ -3,6 +3,8 @@
     name: steam
     source: https://community.chocolatey.org/api/v2/
     state: present
+    choco_args:
+    - --ignore-checksums
 
 - name: Install discord
   chocolatey.chocolatey.win_chocolatey:
