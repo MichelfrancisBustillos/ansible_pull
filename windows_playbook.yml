@@ -11,6 +11,7 @@
         - CriticalUpdates
         - SecurityUpdates
         state: installed
+        ignore_errors: true
 
   tasks:
     - name: Clean Up Start Menu
