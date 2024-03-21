@@ -53,4 +53,5 @@ EndPoints:
     ansible_connection: winrm
     ansible_user: KatoterosAdmin
     ansible_password: neverland
-  
+    ansible_port: 5985
+    ansible_winrm_scheme: http

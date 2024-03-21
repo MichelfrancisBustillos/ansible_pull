@@ -7,8 +7,6 @@
         state: searched
 
   tasks:
-    - name: Install updates
-      ansible.builtin.include_tasks: windows_tasks/install_updates.yml
     - name: Clean Up Start Menu
       ansible.builtin.include_tasks: windows_tasks/start_menu.yml
     - name: Enable Remote Desktop
@@ -19,4 +17,3 @@
       ansible.builtin.include_tasks: windows_tasks/choco_install.yml
     - name: Install Choco Packages
       ansible.builtin.include_tasks: windows_tasks/choco_packages.yml
-
