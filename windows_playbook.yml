@@ -2,6 +2,9 @@
   hosts: Testing
 
   pre_tasks:
+    - name: Do not count this as a failure
+      ansible.builtin.command: /bin/false
+      ignore_errors: true
     - name: Check for missing updates.
       ansible.windows.win_updates:
         state: searched
@@ -11,7 +14,6 @@
         - CriticalUpdates
         - SecurityUpdates
         state: installed
-        ignore_errors: true
 
   tasks:
     - name: Clean Up Start Menu
