@@ -30,13 +30,6 @@
     source: https://community.chocolatey.org/api/v2/
     state: present
 
-- name: Install microsoft-office-deployment
-  chocolatey.chocolatey.win_chocolatey:
-    name: microsoft-office-deployment
-    source: https://community.chocolatey.org/api/v2/
-    state: present
-    ignore_errors: yes 
-
 - name: Install tailscale
   chocolatey.chocolatey.win_chocolatey:
     name: tailscale
