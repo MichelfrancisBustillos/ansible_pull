@@ -2,20 +2,13 @@
   hosts: Testing
 
   pre_tasks:
-    - name: Do not count this as a failure
-      ansible.builtin.command: /bin/false
-      ignore_errors: true
     - name: Check for missing updates.
       ansible.windows.win_updates:
         state: searched
-    - name: Install Updates
-      win_updates:
-        category_names:
-        - CriticalUpdates
-        - SecurityUpdates
-        state: installed
 
   tasks:
+    - name: Install updates
+      ansible.builtin.include_tasks: windows_tasks/install_updates.yml
     - name: Clean Up Start Menu
       ansible.builtin.include_tasks: windows_tasks/start_menu.yml
     - name: Enable Remote Desktop
