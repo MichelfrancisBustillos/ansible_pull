@@ -23,3 +23,13 @@
     owner: root
     group: root
     mode: ug=r,o=
+
+- name: Disable SSH as root
+  ansible.builtin.lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^\#?\s?PermitRootLogin.*$'
+    line: "PermitRootLogin yes"
+    state: present
+    backup: true
+  notify:
+    - Restart SSHD

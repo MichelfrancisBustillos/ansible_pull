@@ -29,3 +29,9 @@
       ansible.builtin.include_tasks: tasks/netdata_deploy.yml
     - name: Deploy Tailscale
       ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
+
+  handlers: 
+    - name: Restart SSHD
+      ansible.builtin.service:
+        name: sshd
+        state: restarted        
