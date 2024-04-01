@@ -1,9 +1,0 @@
-- name: Configure Remote Desktop Services.
-  ansible.windows.win_regedit:
-    path: "{{ item }}"
-    name: fDenyTSConnections
-    data: 0x00000000
-    type: dword
-  loop:
-    - "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Terminal Server\\"
-    - "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"

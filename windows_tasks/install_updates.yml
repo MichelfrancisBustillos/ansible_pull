@@ -1,6 +1,0 @@
-- name: Install Updates
-  win_updates:
-    category_names:
-    - CriticalUpdates
-    - SecurityUpdates
-    state: installed
