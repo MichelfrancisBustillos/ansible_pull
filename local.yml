@@ -30,8 +30,8 @@
     - name: Deploy Tailscale
       ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
 
-  handlers: 
+  handlers:
     - name: Restart SSHD
       ansible.builtin.service:
         name: ssh
-        state: restarted        
+        state: restarted
