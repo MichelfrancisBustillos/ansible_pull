@@ -34,7 +34,7 @@ Laptops:
       ansible_host: Trisha-Laptop.katoteros.org
     Michels-Laptop:
       ansible_host: Michels-Laptop.katoteros.org
-    Kats-Laptop: 
+    Kats-Laptop:
       ansible_host: Kats-Laptop.katoteros.org
 Testing:
   hosts:
