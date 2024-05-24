@@ -24,11 +24,11 @@
     group: root
     mode: ug=r,o=
 
-- name: Disable SSH as root
+- name: Enable SSH as root (cuz f'in ProxMox)
   ansible.builtin.lineinfile:
     dest: /etc/ssh/sshd_config
     regexp: '^\#?\s?PermitRootLogin.*$'
-    line: "PermitRootLogin no"
+    line: "PermitRootLogin yes"
     state: present
     backup: true
   notify:
