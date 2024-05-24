@@ -10,3 +10,7 @@
 - name: Install micro
   ansible.builtin.apt:
     name: micro
+
+- name: Install bat
+  ansible.builtin.apt:
+    name: bat
