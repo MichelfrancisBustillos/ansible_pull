@@ -11,5 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Ansible Molecule
-      uses: gofrolist/molecule-action@v2.7.16
+      uses: gofrolist/molecule-action@v2.7.25
 
