@@ -29,6 +29,8 @@
       ansible.builtin.include_tasks: tasks/netdata_deploy.yml
     - name: Deploy Tailscale
       ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
+    - name: Deploy Glances
+      ansible.builtin.include_tasks: tasks/deploy_glances.yml
 
   handlers:
     - name: Restart SSHD
