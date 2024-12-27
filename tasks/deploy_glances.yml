@@ -1,9 +1,6 @@
-- name: Install PIPx
-  ansible.builtin.apt:
-    name: pipx
-
 - name: Install Glances
-  ansible.builtin.command: pipx install 'glances[all]'
+  ansible.builtin.apt:
+    name: glances 
 
 - name: Copy service file
   ansible.builtin.copy:
