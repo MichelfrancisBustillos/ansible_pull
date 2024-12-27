@@ -6,7 +6,7 @@
   ansible.builtin.command: pipx install 'glances[all]'
 
 - name: Copy service file
-  ansible.builting.copy:
+  ansible.builtin.copy:
     src: files/glances.service
     dest: /etc/systemd/system/glances.service
     force: true
