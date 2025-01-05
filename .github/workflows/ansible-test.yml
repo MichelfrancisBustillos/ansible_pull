@@ -2,12 +2,12 @@ name: Ansible Test
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
 
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
-jobs: 
+jobs:
   ansible-test:
     runs-on: ubuntu-latest
 
