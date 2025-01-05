@@ -10,6 +10,5 @@ jobs:
     name: Ansible Test # Naming the build is important to use it as a status check
     runs-on: ubuntu-latest
     steps:
-    - name: Ansible Molecule
-      uses: gofrolist/molecule-action@v2.7.16
-
+      - name: Ansible Molecule
+        uses: gofrolist/molecule-action@v2.7.16

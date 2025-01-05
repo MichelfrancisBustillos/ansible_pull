@@ -1,6 +1,6 @@
 - name: Install Glances
   ansible.builtin.apt:
-    name: glances 
+    name: glances
 
 - name: Copy service file
   ansible.builtin.copy:
