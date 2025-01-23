@@ -64,3 +64,4 @@ alias logs="find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1
 
 alias nano='micro'
 alias cat='batcat --paging=never'
+alias glances='sudo /root/.local/bin/glances'
