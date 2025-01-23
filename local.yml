@@ -13,24 +13,26 @@
         manager: auto
 
   tasks:
-    - name: Install initial packages
-      ansible.builtin.include_tasks: tasks/initial_packages.yml
-    - name: Create users michel and ansible
-      ansible.builtin.include_tasks: tasks/create_users.yml
-    - name: Install ansible cron task
-      ansible.builtin.include_tasks: tasks/cron.yml
-    - name: Install bashrc and bash_aliases
-      ansible.builtin.include_tasks: tasks/bash_configs.yml
-    - name: Setup Postfix
-      ansible.builtin.include_tasks: tasks/postfix_setup.yml
-    - name: Setup Unattended Upgrades
-      ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
-    - name: Deploy Glances
-      ansible.builtin.include_tasks: tasks/deploy_glances.yml
-    - name: Deploy NetData
-      ansible.builtin.include_tasks: tasks/netdata_deploy.yml
-    - name: Deploy Tailscale
-      ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
+    - block:
+      - name: Install initial packages
+        ansible.builtin.include_tasks: tasks/initial_packages.yml
+      - name: Create users michel and ansible
+        ansible.builtin.include_tasks: tasks/create_users.yml
+      - name: Install ansible cron task
+        ansible.builtin.include_tasks: tasks/cron.yml
+      - name: Install bashrc and bash_aliases
+        ansible.builtin.include_tasks: tasks/bash_configs.yml
+      - name: Setup Postfix
+        ansible.builtin.include_tasks: tasks/postfix_setup.yml
+      - name: Setup Unattended Upgrades
+        ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
+      - name: Deploy Glances
+        ansible.builtin.include_tasks: tasks/deploy_glances.yml
+      - name: Deploy NetData
+        ansible.builtin.include_tasks: tasks/netdata_deploy.yml
+      - name: Deploy Tailscale
+        ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
+      ignore_errors: yes
 
   handlers:
     - name: Restart SSHD
