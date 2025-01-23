@@ -5,7 +5,7 @@
       - glances[all]
   community.general.pipx:
     name: "{{ item }}"
-    state: latest
+    state: present
   with_items: "{{ pipx_packages }}"
 
 - name: Copy service file
