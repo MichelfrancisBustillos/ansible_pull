@@ -14,7 +14,6 @@
 
   tasks:
     - name: Execute all tasks
-      failed_when: "'FAILED' in command_result.stderr"
       block:
       - name: Install initial packages
         ansible.builtin.include_tasks: tasks/initial_packages.yml
@@ -34,6 +33,10 @@
         ansible.builtin.include_tasks: tasks/netdata_deploy.yml
       - name: Deploy Tailscale
         ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
+      rescue:
+        - name: Notify
+          ansible.builtin.debug:
+            msg: "Something went wrong, please check the logs"
 
   handlers:
     - name: Restart SSHD
