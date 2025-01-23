@@ -1,12 +1,12 @@
-- name: Install GPU Module
-  ansible.builtin.apt:
-    name: py3nvml
-    state: present
-
-- name: Install Glances
+- name: Install Pipx Components
+  vars:
+    pipx_packages:
+      - py3nvml
+      - glances[all]
   community.general.pipx:
-    name: glances[all]
-    state: present
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ pipx_packages }}"
 
 - name: Copy service file
   ansible.builtin.copy:
