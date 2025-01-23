@@ -22,6 +22,7 @@
     group: root
     mode: u=rw,go=
     force: true
+  when: email_key is defined
 
 - name: Copy main.cf
   ansible.builtin.copy:
