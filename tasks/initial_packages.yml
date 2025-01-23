@@ -14,3 +14,12 @@
 - name: Install bat
   ansible.builtin.apt:
     name: bat
+
+- name: Install community.general collection
+  command: ansible-galaxy collection install community.general
+  register: install_general
+  changed_when: '"Nothing to do." not in install_general.stdout'
+
+- name: Install Pipx
+  ansible.builtin.apt:
+    name: pipx
