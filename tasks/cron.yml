@@ -5,7 +5,7 @@
 
 - name: Install cron job (ansible-pull)
   ansible.builtin.cron:
-    user: ansible
+    user: root
     name: "ansible provision"
     minute: "0"
     hour: "*/6"
