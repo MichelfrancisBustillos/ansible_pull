@@ -3,7 +3,8 @@ Description=Glances
 After=network.target
 
 [Service]
-ExecStart=glances -w
+User=root
+ExecStart=/root/.local/bin/glances -w
 Restart=always
 RemainAfterExit=no
 
