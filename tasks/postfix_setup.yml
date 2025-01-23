@@ -6,7 +6,7 @@
 
 - name: Copy sasl_passwd
   vars:
-    emailKey: !vault |
+    email_key: !vault |
             $ANSIBLE_VAULT;1.1;AES256
             64643231626239376133346130663762633863326432643839666461613732396239343535333263
             3235373665646663363065346535383139666532313263660a666630653633333236333637386332
@@ -16,7 +16,7 @@
             39333961636166666439633761303965333035653936316165643936366533336431623563303036
             373062303961393233396239313532373332
   ansible.builtin.copy:
-    content: "{{ emailKey }}"
+    content: "{{ email_key }}"
     dest: /etc/postfix/sasl_passwd
     owner: root
     group: root

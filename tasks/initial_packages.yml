@@ -16,7 +16,7 @@
     name: bat
 
 - name: Install community.general collection
-  command: ansible-galaxy collection install community.general
+  ansible.builtin.command: ansible-galaxy collection install community.general
   register: install_general
   changed_when: '"Nothing to do." not in install_general.stdout'
 
