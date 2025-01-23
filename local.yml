@@ -13,7 +13,9 @@
         manager: auto
 
   tasks:
-    - block:
+    - name: Execute all tasks
+      failed_when: "'FAILED' in command_result.stderr"
+      block:
       - name: Install initial packages
         ansible.builtin.include_tasks: tasks/initial_packages.yml
       - name: Create users michel and ansible
@@ -32,7 +34,6 @@
         ansible.builtin.include_tasks: tasks/netdata_deploy.yml
       - name: Deploy Tailscale
         ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
-      ignore_errors: yes
 
   handlers:
     - name: Restart SSHD

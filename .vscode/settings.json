@@ -1,5 +1,5 @@
 {
-    "ansible.python.interpreterPath": "c:\\Python312\\python.exe",
+    "ansible.python.interpreterPath": "c:\\Users\\bustilm\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
     "ansible.executionEnvironment.enabled": false,
     "yaml.schemas": {
         "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": "file:///c%3A/Users/miche/OneDrive/Documents/GitHub/ansible_pull/tasks/postfix_setup.yml"
