@@ -25,12 +25,12 @@
       ansible.builtin.include_tasks: tasks/postfix_setup.yml
     - name: Setup Unattended Upgrades
       ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
+    - name: Deploy Glances
+      ansible.builtin.include_tasks: tasks/deploy_glances.yml
     - name: Deploy NetData
       ansible.builtin.include_tasks: tasks/netdata_deploy.yml
     - name: Deploy Tailscale
       ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
-    - name: Deploy Glances
-      ansible.builtin.include_tasks: tasks/deploy_glances.yml
 
   handlers:
     - name: Restart SSHD
