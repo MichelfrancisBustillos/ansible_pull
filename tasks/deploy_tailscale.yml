@@ -24,3 +24,4 @@
   ansible.builtin.command: "{{ 'sudo tailscale up --authkey ' ~ tskey ~ ' --ssh' }}"
   register: tailscale_result
   changed_when: tailscale_result.stdout != ""
+  when: tskey is defined
