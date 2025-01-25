@@ -1,5 +1,3 @@
-<!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
-
 # ➤ ansible_pull
 
 [![ansible-lint](https://github.com/MichelfrancisBustillos/ansible_pull/actions/workflows/ansible-lint.yml/badge.svg)](https://github.com/MichelfrancisBustillos/ansible_pull/actions/workflows/ansible-lint.yml)
@@ -9,11 +7,13 @@
 - Install Default Packages:
   - libsasl2-modules
   - [mailutils](https://mailutils.org/)
-  - [nano](https://www.nano-editor.org/)
+  - [micro](https://micro-editor.github.io/)
   - [cron](https://wiki.debian.org/cron)
   - [sudo](https://www.sudo.ws/)
   - [neofetch](https://github.com/dylanaraps/neofetch)
   - [unattended-upgrades](https://wiki.debian.org/UnattendedUpgrades)
+  - [pipx](https://pipx.pypa.io/stable/)
+  - [glances](https://github.com/nicolargo/glances)
 - Create Default User (michel) w/ Password
 - Configure default terminal environment
   - .bashrc and .bash_aliases files copied to localhost.
@@ -25,16 +25,10 @@
 - Enable regular ansible syncs via Cron
   - Ansible pull command is run every 6 hours and executed if repository has been changed.
 - Install and enable Tailscale w/ SSH
+- Mount CIFS Share
+- Install Glances with all modules via Pipx and enable Glances webserver
 
 ## ➤ Requirements
 
 - ansible
 - git
-
-## ➤ Installation
-
-```bash
-apt install ansible -y
-apt install git -y
-sudo ansible-pull -U https://github.com/MichelfrancisBustillos/ansible_pull.git
-```
