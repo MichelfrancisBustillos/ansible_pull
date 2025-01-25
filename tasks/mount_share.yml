@@ -24,4 +24,4 @@
     fstype: cifs
     opts: "rw,nobrl,user=admin,password={{ password }},uid=michel"  # noqa: jinja[invalid]
     state: mounted
-    when: pass is defined
+  when: pass is defined
