@@ -7,10 +7,11 @@
   ansible.builtin.file:
     path: /mnt/Hoard
     state: directory
+    mode: u=rw,go=r
 
 - name: Mount Share
   vars:
-    pass: !vault |
+    password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           66386161373633383836393235323134646532353135633230393132306162393264666430616330
           3534393263643362333539633533353030303835303361320a383561303434643562316363646431
@@ -21,7 +22,6 @@
     path: /mnt/Hoard
     src: //srv3.katoteros.org/Hoard
     fstype: cifs
-    opts: "rw,nobrl,user=admin,password={{ pass }},uid=michel"
+    opts: "rw,nobrl,user=admin,password={{ password }},uid=michel"  # noqa: jinja[invalid]
     state: mounted
     when: pass is defined
-    

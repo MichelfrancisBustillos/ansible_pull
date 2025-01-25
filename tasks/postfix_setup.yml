@@ -16,7 +16,7 @@
             39333961636166666439633761303965333035653936316165643936366533336431623563303036
             373062303961393233396239313532373332
   ansible.builtin.copy:
-    content: "{{ email_key }}"
+    content: "{{ email_key }}" # noqa: jinja[invalid]
     dest: /etc/postfix/sasl_passwd
     owner: root
     group: root

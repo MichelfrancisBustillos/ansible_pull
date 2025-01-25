@@ -21,7 +21,7 @@
           38326232333166396234633066303239386436333764643530376636346534383937663538383133
           32373830653964393130396161633239653236653533333731613833636332326363376261656333
           623464363331303335313430346232313065
-  ansible.builtin.command: "{{ 'sudo tailscale up --authkey ' ~ tskey ~ ' --ssh' }}"
+  ansible.builtin.command: "{{ 'sudo tailscale up --authkey ' ~ tskey ~ ' --ssh' }}"  # noqa: jinja[invalid]
   register: tailscale_result
   changed_when: tailscale_result.stdout != ""
   when: tskey is defined
