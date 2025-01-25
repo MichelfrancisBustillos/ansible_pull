@@ -7,7 +7,7 @@
   ansible.builtin.file:
     path: /mnt/Hoard
     state: directory
-    mode: u=rw,go=r
+    mode: u=rw,go=rw
 
 - name: Mount Share
   vars:
@@ -24,4 +24,4 @@
     fstype: cifs
     opts: "rw,nobrl,user=admin,password={{ password }},uid=michel"  # noqa: jinja[invalid]
     state: mounted
-  when: pass is defined
+  when: password is defined
