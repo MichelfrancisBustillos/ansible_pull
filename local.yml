@@ -33,6 +33,8 @@
           ansible.builtin.include_tasks: tasks/netdata_deploy.yml
         - name: Deploy Tailscale
           ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
+        - name: Mount Share
+          ansible.builtin.include_tasks: tasks/mount_share.yml
       rescue:
         - name: Notify
           ansible.builtin.debug:
