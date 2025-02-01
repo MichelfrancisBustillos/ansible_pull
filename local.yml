@@ -14,6 +14,7 @@
 
   tasks:
     - name: Execute all tasks
+      ignore_errors: true # noqa: ignore-errors
       block:
         - name: Install initial packages
           ansible.builtin.include_tasks: tasks/initial_packages.yml
@@ -37,7 +38,6 @@
           ansible.builtin.include_tasks: tasks/netdata_deploy.yml
         - name: Deploy Tailscale
           ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
-      ignore_errors: yes
       rescue:
         - name: Notify
           ansible.builtin.debug:
