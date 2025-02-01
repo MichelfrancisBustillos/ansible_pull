@@ -31,7 +31,3 @@
       - docker-compose-plugin
     state: latest
     update_cache: true
-
-- name: Install Docker Module for Python
-  pip:
-    name: docker
