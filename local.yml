@@ -31,6 +31,8 @@
           ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
         - name: Deploy Glances
           ansible.builtin.include_tasks: tasks/deploy_glances.yml
+        - name: Deploy Docker
+          ansible.builtin.include_tasks: tasks/deploy_docker.yml
         - name: Deploy NetData
           ansible.builtin.include_tasks: tasks/netdata_deploy.yml
         - name: Deploy Tailscale
