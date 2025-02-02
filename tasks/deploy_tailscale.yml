@@ -1,27 +1,24 @@
-- name: Download Tailscale Install Script
-  ansible.builtin.get_url:
-    url: https://tailscale.com/install.sh
-    dest: /tmp/tailscale_install.sh
-    mode: '0755'
-    force: true
-
-- name: Install Tailscale
-  ansible.builtin.command: bash /tmp/tailscale_install.sh
-  register: result
-  changed_when: "'0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.' not in result.stdout"
-
-- name: Auth and Enable Tailscale
-  vars:
-    tskey: !vault |
+- name: Deploy Tailscale
+  block:
+    - name: Include Tailscale role
+      ansible.builtin.include_role:
+        name: artis3n.tailscale
+      vars:
+        tailscale_authkey: !vault |
           $ANSIBLE_VAULT;1.1;AES256
-          31663265633530313166666265633437663835303736663264393437336237363362663130353536
-          3333643464393439386631373630663133353731386139390a663937353863666632333062336339
-          38343735643232663037616531343362633536396264376366366164373836386366326162623932
-          3332323738326235310a343233636266316263653339323561353062373164346265363266313536
-          38326232333166396234633066303239386436333764643530376636346534383937663538383133
-          32373830653964393130396161633239653236653533333731613833636332326363376261656333
-          623464363331303335313430346232313065
-  ansible.builtin.command: "{{ 'sudo tailscale up --authkey ' ~ tskey ~ ' --ssh' }}" # noqa: jinja[invalid]
-  register: tailscale_result
-  changed_when: tailscale_result.stdout != ""
-  when: tskey is defined
+          66313865306266636438373664333632393561373738643239656136343738306330373038393936
+          3939303936613930633932373935623562636134393533610a306661326363623137383838353262
+          62333737336437396530316565313735336430343062383136383831326639626635633863363138
+          3032336331626133650a613239343734333239303764393361386164633164366635386532326461
+          37646361303838306231333764313630666133346461353831376532663932613964323338373735
+          35343431396630306635663665383737383038383465666464626163653337333636643865333962
+          616634663438656364643564333263666661
+        tailscale_args: "--ssh"
+
+  rescue:
+    - name: Handle failure
+      ansible.builtin.debug:
+        msg: "An error occurred during Tailscale deployment."
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"

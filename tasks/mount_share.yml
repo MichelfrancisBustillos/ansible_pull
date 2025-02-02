@@ -1,31 +1,40 @@
-- name: Install cifs-utils
-  ansible.builtin.apt:
-    name: cifs-utils
-    state: present
-    update_cache: true
-  become: true
+- name: Configure mount share
+  block:
+    - name: Install cifs-utils
+      ansible.builtin.apt:
+        name: cifs-utils
+        state: present
+        update_cache: true
+      become: true
 
-- name: Create Mount Point
-  ansible.builtin.file:
-    path: /mnt/Hoard
-    state: directory
-    mode: '0775'
-  become: true
+    - name: Create Mount Point
+      ansible.builtin.file:
+        path: /mnt/Hoard
+        state: directory
+        mode: '0775'
+      become: true
 
-- name: Mount Share
-  vars:
-    password: !vault |
-              $ANSIBLE_VAULT;1.1;AES256
-              35626236396137623338363138383065323032393166623234373239343033613737376164336361
-              3762646232633966396661373731633036393830353332620a316233643864376161643533613436
-              37383738303432643061343534373465633535313839363762386661396530353862383636313632
-              3063343563323933340a313432613061333261393537663930626137326562616265643839343462
-              6635
-  ansible.posix.mount:
-    path: /mnt/Hoard
-    src: //srv3.katoteros.org/Hoard
-    fstype: cifs
-    opts: "rw,nobrl,user=admin,password={{ password }},uid=michel" # noqa: jinja[invalid]
-    state: mounted
-  when: password is defined
-  become: true
+    - name: Mount Share
+      vars:
+        password: !vault |
+                  $ANSIBLE_VAULT;1.1;AES256
+                  35626236396137623338363138383065323032393166623234373239343033613737376164336361
+                  3762646232633966396661373731633036393830353332620a316233643864376161643533613436
+                  37383738303432643061343534373465633535313839363762386661396530353862383636313632
+                  3063343563323933340a313432613061333261393537663930626137326562616265643839343462
+                  6635
+      ansible.posix.mount:
+        path: /mnt/Hoard
+        src: //srv3.katoteros.org/Hoard
+        fstype: cifs
+        opts: "rw,nobrl,user=admin,password={{ password }},uid=michel" # noqa: jinja[invalid]
+        state: mounted
+      when: password is defined
+      become: true
+  rescue:
+    - name: Handle task failure
+      ansible.builtin.debug:
+        msg: "A task in the mount share block failed"
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"

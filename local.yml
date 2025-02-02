@@ -3,7 +3,41 @@
   connection: localhost
   become: true
 
+  vars:
+    task_list:
+      - tasks/initial_packages.yml
+      - tasks/create_users.yml
+      - tasks/cron.yml
+      - tasks/bash_configs.yml
+      - tasks/mount_share.yml
+      - tasks/postfix_setup.yml
+      - tasks/unattended_upgrades.yml
+      - tasks/deploy_tailscale.yml
+      - tasks/deploy_glances.yml
+      - tasks/deploy_docker.yml
+    failure_counter: 0
+    pushover_token: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          33643336633035353030366461393132303438623765313636626262656335346234656466306431
+          3934366636343439343434353839663633303366366265630a336534323437653839313931393162
+          66643562663337653633373932333033626533363365653232373639313239383963363534386363
+          3237356532613062640a623864393963303137636332643833386334333735383666626162313039
+          36333763363365306565643961366266343431626639306238396437343837353865
+    pushover_user: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          65303162333732393164303563373532616538393666393335633631353334313061633934626365
+          3834626564636565353938623532313763626661306230360a363663623163383862623363353139
+          39396364643232663939373031323136383064323434343564656561393136626166393131396137
+          3664656430336237660a373833643464626535383437383664613964663035396163373835343631
+          33663739343564383966333065333063623630656366323739646234623561343564
+
+
   pre_tasks:
+    - name: Install artis3n.tailscale role
+      ansible.builtin.command:
+        cmd: ansible-galaxy install artis3n.tailscale
+      changed_when: false
+
     - name: Update repos
       ansible.builtin.apt:
         update_cache: true
@@ -15,40 +49,26 @@
 
   tasks:
     - name: Execute all tasks
-      ignore_errors: true # noqa: ignore-errors
-      block:
-        - name: Install initial packages
-          ansible.builtin.include_tasks: tasks/initial_packages.yml
+      ansible.builtin.include_tasks: "{{ current_task }}"
+      loop: "{{ task_list }}"
+      loop_control:
+        loop_var: current_task
+      register: task_result
+      ignore_errors: true
 
-        - name: Create users michel and ansible
-          ansible.builtin.include_tasks: tasks/create_users.yml
-
-        - name: Install ansible cron task
-          ansible.builtin.include_tasks: tasks/cron.yml
-
-        - name: Install bashrc and bash_aliases
-          ansible.builtin.include_tasks: tasks/bash_configs.yml
-
-        - name: Mount Share
-          ansible.builtin.include_tasks: tasks/mount_share.yml
-
-        - name: Setup Postfix
-          ansible.builtin.include_tasks: tasks/postfix_setup.yml
-
-        - name: Setup Unattended Upgrades
-          ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
-
-        - name: Deploy Glances
-          ansible.builtin.include_tasks: tasks/deploy_glances.yml
-
-        - name: Deploy Docker
-          ansible.builtin.include_tasks: tasks/deploy_docker.yml
-
-        - name: Deploy NetData
-          ansible.builtin.include_tasks: tasks/netdata_deploy.yml
-
-        - name: Deploy Tailscale
-          ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
+    - name: Send Pushover notification
+      ansible.builtin.uri:
+        url: "https://api.pushover.net/1/messages.json"
+        method: POST
+        body_format: form-urlencoded
+        body:
+          token: "{{ pushover_token }}" # noqa: jinja[invalid]
+          user: "{{ pushover_user }}" # noqa: jinja[invalid]
+          title: "Ansible ran on {{ ansible_hostname }}"
+          message: "Failure counter: {{ failure_counter }}"
+          priority: "{{ ('-1' if failure_counter == '0' else '1') | int }}"
+        headers:
+          Content-Type: "application/x-www-form-urlencoded"
 
   handlers:
     - name: Restart SSHD
