@@ -1,15 +1,21 @@
-- name: Install Cron
-  ansible.builtin.apt:
-    name: cron
-    state: present
-    update_cache: true
-  become: true
+- name: Configure cron jobs
+  block:
+    - name: Install Cron
+      ansible.builtin.apt:
+        name: cron
+        state: present
+        update_cache: true
+      become: true
 
-- name: Install cron job (ansible-pull)
-  ansible.builtin.cron:
-    user: root
-    name: "ansible provision"
-    minute: "0"
-    hour: "*/6"
-    job: "/usr/bin/ansible-pull -o -U https://github.com/MichelfrancisBustillos/ansible_pull.git --vault-password-file /home/michel/.vault_pass.txt > /dev/null"
-  become: true
+    - name: Install cron job (ansible-pull)
+      ansible.builtin.cron:
+        user: root
+        name: "ansible provision"
+        minute: "0"
+        hour: "*/6"
+        job: "/usr/bin/ansible-pull -o -U https://github.com/MichelfrancisBustillos/ansible_pull.git --vault-password-file /home/michel/.vault_pass.txt > /dev/null"
+      become: true
+  rescue:
+    - name: Handle task failure
+      ansible.builtin.debug:
+        msg: "A task in the cron configuration block failed"

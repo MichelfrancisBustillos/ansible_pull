@@ -34,13 +34,7 @@
 
     - name: Execute all tasks
       # ignore_errors: true # noqa: ignore-errors
-      block:
-        - name: Include tasks
-          ansible.builtin.include_tasks: "{{ current_task }}"
-      rescue:
-        - name: Handle task failure
-          ansible.builtin.debug:
-            msg: "Task {{ current_task }} failed"
+      ansible.builtin.include_tasks: "{{ current_task }}"
       loop: "{{ task_list }}"
       loop_control:
         loop_var: current_task

@@ -1,35 +1,46 @@
-- name: Create ansible user
-  ansible.builtin.user:
-    name: ansible
-    system: true
+- name: Manage users and SSH configuration
+  block:
+    - name: Create ansible user
+      ansible.builtin.user:
+        name: ansible
+        system: true
+      become: true
 
-- name: Copy sudoers_ansible
-  ansible.builtin.copy:
-    src: files/sudoers_ansible
-    dest: /etc/sudoers.d/ansible
-    owner: root
-    group: root
-    mode: '0440'
+    - name: Copy sudoers_ansible
+      ansible.builtin.copy:
+        src: files/sudoers_ansible
+        dest: /etc/sudoers.d/ansible
+        owner: root
+        group: root
+        mode: '0440'
+      become: true
 
-- name: Create michel
-  ansible.builtin.user:
-    name: michel
-    password: "{{ 'shadow' | password_hash('sha512', 'MnFBb7vfYNYt') }}"
+    - name: Create michel
+      ansible.builtin.user:
+        name: michel
+        password: "{{ 'shadow' | password_hash('sha512', 'MnFBb7vfYNYt') }}"
+      become: true
 
-- name: Copy sudoers_michel
-  ansible.builtin.copy:
-    src: files/sudoers_michel
-    dest: /etc/sudoers.d/michel
-    owner: root
-    group: root
-    mode: '0440'
+    - name: Copy sudoers_michel
+      ansible.builtin.copy:
+        src: files/sudoers_michel
+        dest: /etc/sudoers.d/michel
+        owner: root
+        group: root
+        mode: '0440'
+      become: true
 
-- name: Enable SSH as root (cuz f'in ProxMox)
-  ansible.builtin.lineinfile:
-    dest: /etc/ssh/sshd_config
-    regexp: '^\#?\s?PermitRootLogin.*$'
-    line: "PermitRootLogin yes"
-    state: present
-    backup: true
-  notify:
-    - Restart SSHD
+    - name: Enable SSH as root (cuz f'in ProxMox)
+      ansible.builtin.lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: '^\#?\s?PermitRootLogin.*$'
+        line: "PermitRootLogin yes"
+        state: present
+        backup: true
+      notify:
+        - Restart SSHD
+      become: true
+  rescue:
+    - name: Handle task failure
+      ansible.builtin.debug:
+        msg: "A task in the user management block failed"
