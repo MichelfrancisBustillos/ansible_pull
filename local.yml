@@ -4,7 +4,8 @@
   become: true
 
   vars:
-    tasks_rescued: 0
+    tasks_successful: 0
+    tasks_failed: 0
 
   pre_tasks:
     - name: Update repos
@@ -18,7 +19,7 @@
 
   tasks:
     - name: Execute all tasks
-      # ignore_errors: true # noqa: ignore-errors
+      ignore_errors: true # noqa: ignore-errors
       block:
         - name: Install initial packages
           ansible.builtin.include_tasks: tasks/initial_packages.yml
@@ -56,11 +57,15 @@
         - name: Nofity
           ansible.builtin.debug:
             msg: "Test notification"
-
-      rescue:
-        - name: Set rescue fact
+      always:
+        - name: Increment successful tasks count
           ansible.builtin.set_fact:
-            tasks_rescued: "{{ tasks_rescued | int + 1 }}"
+            tasks_successful: "{{ tasks_successful | int + 1 }}"
+          when: ansible_failed_task is not defined
+        - name: Increment failed tasks count
+          ansible.builtin.set_fact:
+            tasks_failed: "{{ tasks_failed | int + 1 }}"
+          when: ansible_failed_task is defined
 
     - name: Send Pushover notification
       ansible.builtin.uri:
@@ -70,7 +75,7 @@
         body:
           token: "a3hptta2gtupjywpjfd6gvkay7zsgc"
           user: "u8opak5mxtzxkbrvf5f4sgo6uidwhz"
-          message: "Tasks rescued: {{ tasks_rescued }}."
+          message: "Tasks successful: {{ tasks_successful }}, Tasks failed: {{ tasks_failed }}"
           title: "Ansible Run on {{ ansible_hostname }}"
           priority: "-1"
         headers:
