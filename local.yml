@@ -32,12 +32,7 @@
         manager: auto
 
   tasks:
-    - name: Notify testing branch
-      ansible.builtin.debug:
-        msg: "This is the testing branch"
-
     - name: Execute all tasks
-      # ignore_errors: true # noqa: ignore-errors
       ansible.builtin.include_tasks: "{{ current_task }}"
       loop: "{{ task_list }}"
       loop_control:
