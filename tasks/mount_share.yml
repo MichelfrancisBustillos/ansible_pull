@@ -52,7 +52,7 @@
         path: /mnt/Ark
         src: //ark.katoteros.org/Media
         fstype: cifs
-        opts: "rw,nobrl,user=server,password={{ password }},exec,umask=000" # noqa: jinja[invalid]
+        opts: "rw,nobrl,user=server,password={{ password }},file_mode=0777,dir_mode=0777" # noqa: jinja[invalid]
         state: mounted
       when: password is defined
       become: true
