@@ -4,9 +4,7 @@
   become: true
 
   vars:
-    tasks_successful: 0
-    tasks_failed: 0
-    tasks_skipped: 0
+    tasks_failure: false
 
   pre_tasks:
     - name: Update repos
@@ -59,34 +57,46 @@
           ansible.builtin.debug:
             msg: "Test notification"
       always:
-        - name: Increment successful tasks count
+        - name: Set Task Failure Flag
           ansible.builtin.set_fact:
-            tasks_successful: "{{ tasks_successful | int + 1 }}"
-          when: ansible_failed_task is not defined
-        - name: Increment failed tasks count
-          ansible.builtin.set_fact:
-            tasks_failed: "{{ tasks_failed | int + 1 }}"
-          when: ansible_failed_task is defined
-        - name: Increment skipped tasks count
-          ansible.builtin.set_fact:
-            tasks_skipped: "{{ tasks_skipped | int + 1 }}"
-          when: ansible_skipped_tasks is defined
+            tasks_failure: true
+          when: ansible_failed_task is defined and ansible_failed_task.ignored
+  
+    - name: Notifications
+      block:
+      - name: Send Pushover notification (No Failure)
+        ansible.builtin.uri:
+          url: https://api.pushover.net/1/messages.json
+          method: POST
+          body_format: form-urlencoded
+          body:
+            token: "a3hptta2gtupjywpjfd6gvkay7zsgc"
+            user: "u8opak5mxtzxkbrvf5f4sgo6uidwhz"
+            message: "All Tasks Completed Successfully!"
+            title: "Ansible Run on {{ ansible_hostname }}"
+            priority: "-1"
+          headers:
+            Content-Type: "application/x-www-form-urlencoded"
+        delegate_to: localhost
+        tags: notification
+        when: tasks_failure == false
 
-    - name: Send Pushover notification
-      ansible.builtin.uri:
-        url: https://api.pushover.net/1/messages.json
-        method: POST
-        body_format: form-urlencoded
-        body:
-          token: "a3hptta2gtupjywpjfd6gvkay7zsgc"
-          user: "u8opak5mxtzxkbrvf5f4sgo6uidwhz"
-          message: "Tasks successful: {{ tasks_successful }}, Tasks failed: {{ tasks_failed }}, Tasks skipped: {{ tasks_skipped }}"
-          title: "Ansible Run on {{ ansible_hostname }}"
-          priority: "-1"
-        headers:
-          Content-Type: "application/x-www-form-urlencoded"
-      delegate_to: localhost
-      tags: notification
+      - name: Send Pushover Notificataion (Failure)
+        ansible.builtin.uri:
+          url: https://api.pushover.net/1/messages.json
+          method: POST
+          body_format: form-urlencoded
+          body:
+            token: "a3hptta2gtupjywpjfd6gvkay7zsgc"
+            user: "u8opak5mxtzxkbrvf5f4sgo6uidwhz"
+            message: "Tasks Failed on {{ ansible_hostname }}"
+            title: "Ansible Run on {{ ansible_hostname }}"
+            priority: "1"
+          headers:
+            Content-Type: "application/x-www-form-urlencoded"
+        delegate_to: localhost
+        tags: notification
+        when: tasks_failure == true
 
   handlers:
     - name: Restart SSHD
