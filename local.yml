@@ -12,9 +12,10 @@
       - tasks/mount_share.yml
       - tasks/postfix_setup.yml
       - tasks/unattended_upgrades.yml
+      - tasks/deploy_tailscale.yml
       - tasks/deploy_glances.yml
       - tasks/deploy_docker.yml
-      - tasks/deploy_tailscale.yml
+      
 
   pre_tasks:
     - name: Update repos
@@ -37,10 +38,12 @@
         - name: Include tasks
           ansible.builtin.include_tasks: "{{ item }}"
           loop: "{{ task_list }}"
+          loop_control:
+            loop_var: current_task
       rescue:
         - name: Handle task failure
           ansible.builtin.debug:
-            msg: "Task {{ item }} failed"
+            msg: "Task {{ current_task }} failed"
 
   handlers:
     - name: Restart SSHD
