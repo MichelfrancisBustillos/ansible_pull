@@ -14,7 +14,6 @@
       - tasks/unattended_upgrades.yml
       - tasks/deploy_glances.yml
       - tasks/deploy_docker.yml
-      - tasks/netdata_deploy.yml
       - tasks/deploy_tailscale.yml
 
   pre_tasks:
@@ -33,7 +32,7 @@
         msg: "This is the testing branch"
 
     - name: Execute all tasks
-      ignore_errors: true # noqa: ignore-errors
+      # ignore_errors: true # noqa: ignore-errors
       block:
         - name: Include tasks
           ansible.builtin.include_tasks: "{{ item }}"
