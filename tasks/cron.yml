@@ -13,7 +13,8 @@
         name: "ansible provision"
         minute: "0"
         hour: "*/6"
-        job: "/usr/bin/ansible-pull -o -U https://github.com/MichelfrancisBustillos/ansible_pull.git --vault-password-file /home/michel/.vault_pass.txt > /dev/null"
+        job: "/usr/bin/ansible-pull -o -U https://github.com/MichelfrancisBustillos/ansible_pull.git \
+              --vault-password-file /home/michel/.vault_pass.txt > /dev/null"
       become: true
   rescue:
     - name: Handle task failure

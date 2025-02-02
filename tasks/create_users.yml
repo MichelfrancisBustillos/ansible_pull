@@ -16,7 +16,7 @@
       become: true
 
     - name: Create michel
-      vars: 
+      vars:
         userpwd: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           37666635336438343366626133656533313034633332333263393162656136303631396636613734
@@ -26,7 +26,7 @@
           6333
       ansible.builtin.user:
         name: michel
-        password: "{{ userpwd | string | password_hash('sha512', 'MnFBb7vfYNYt') }}"
+        password: "{{ userpwd | string | password_hash('sha512', 'MnFBb7vfYNYt') }}" # noqa: jinja[invalid]
       become: true
 
     - name: Copy sudoers_michel
