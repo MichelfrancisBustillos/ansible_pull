@@ -26,7 +26,7 @@
           6333
       ansible.builtin.user:
         name: michel
-        password: "{{ userpwd | password_hash('sha512', 'MnFBb7vfYNYt') }}"
+        password: "{{ lookup('ansible.builtin.password_hash', userpwd, 'sha512', 'MnFBb7vfYNYt') }}"
       become: true
 
     - name: Copy sudoers_michel
