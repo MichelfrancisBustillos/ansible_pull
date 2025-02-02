@@ -6,15 +6,15 @@
   vars:
     task_list:
       - tasks/initial_packages.yml
-      - tasks/create_users.yml
-      - tasks/cron.yml
-      - tasks/bash_configs.yml
-      - tasks/mount_share.yml
-      - tasks/postfix_setup.yml
-      - tasks/unattended_upgrades.yml
+      # - tasks/create_users.yml
+      # - tasks/cron.yml
+      # - tasks/bash_configs.yml
+      # - tasks/mount_share.yml
+      # - tasks/postfix_setup.yml
+      # - tasks/unattended_upgrades.yml
       - tasks/deploy_tailscale.yml
       - tasks/deploy_glances.yml
-      - tasks/deploy_docker.yml
+      # - tasks/deploy_docker.yml
     failure_counter: 0
 
   pre_tasks:
