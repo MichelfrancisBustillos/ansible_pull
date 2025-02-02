@@ -1,4 +1,4 @@
-- Setup Postfix
+- name: Setup Postfix
   block:
     - name: Install Mail Packages
       ansible.builtin.apt:
