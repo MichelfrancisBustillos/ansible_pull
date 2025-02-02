@@ -44,6 +44,10 @@
         - name: Handle task failure
           ansible.builtin.debug:
             msg: "Task {{ current_task }} failed"
+      always:
+        - name: Notify task completion
+          ansible.builtin.debug:
+            msg: "Task {{ current_task }} completed"
 
   handlers:
     - name: Restart SSHD
