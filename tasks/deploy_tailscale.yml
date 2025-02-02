@@ -4,7 +4,7 @@
       include_role:
         name: artis3n.tailscale
       vars:
-        tailscale_auth_key: !vault |
+        tailscale_authkey: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           66313865306266636438373664333632393561373738643239656136343738306330373038393936
           3939303936613930633932373935623562636134393533610a306661326363623137383838353262

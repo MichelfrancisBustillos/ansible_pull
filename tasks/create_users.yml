@@ -26,7 +26,7 @@
           6333
       ansible.builtin.user:
         name: michel
-        password: "{{ lookup('ansible.builtin.password_hash', userpwd, 'sha512', 'MnFBb7vfYNYt') }}"
+        password: "{{ userpwd | string | password_hash('sha512', 'MnFBb7vfYNYt') }}"
       become: true
 
     - name: Copy sudoers_michel
@@ -48,6 +48,7 @@
       notify:
         - Restart SSHD
       become: true
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
