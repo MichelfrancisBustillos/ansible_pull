@@ -2,7 +2,7 @@
   ansible.builtin.apt:
     name: cifs-utils
     state: present
-    update_cache: yes
+    update_cache: true
   become: true
 
 - name: Create Mount Point

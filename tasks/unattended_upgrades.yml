@@ -2,7 +2,7 @@
   ansible.builtin.apt:
     name: unattended-upgrades
     state: present
-    update_cache: yes
+    update_cache: true
   become: true
 
 - name: Copy unattended-upgrades config

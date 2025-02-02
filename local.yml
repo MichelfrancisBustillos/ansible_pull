@@ -53,14 +53,7 @@
       rescue:
         - name: Set rescue fact
           ansible.builtin.set_fact:
-            tasks_rescued: true
-
-      always:
-        - name: Set task counts
-          ansible.builtin.set_fact:
-            tasks_successful: "{{ ansible_stats.ok }}"
-            tasks_failed: "{{ ansible_stats.failures }}"
-            tasks_rescued: "{{ ansible_stats.rescued | default(0) }}"
+            tasks_rescued: "{{ tasks_rescued | int + 1 }}"
 
     - name: Send Pushover notification
       ansible.builtin.uri:
@@ -68,10 +61,11 @@
         method: POST
         body_format: form-urlencoded
         body:
-          token: "YOUR_APP_TOKEN"
-          user: "YOUR_USER_KEY"
-          message: "The Ansible playbook has completed running on {{ ansible_hostname }} at {{ ansible_date_time.iso8601 }}. Tasks successful: {{ tasks_successful }}, Tasks failed: {{ tasks_failed }}, Tasks rescued: {{ tasks_rescued }}."
-          title: "Ansible Playbook Notification"
+          token: "a3hptta2gtupjywpjfd6gvkay7zsgc"
+          user: "u8opak5mxtzxkbrvf5f4sgo6uidwhz"
+          message: "Tasks rescued: {{ tasks_rescued }}."
+          title: "Ansible Run on {{ ansible_hostname }}"
+          priority: "-1"
         headers:
           Content-Type: "application/x-www-form-urlencoded"
       delegate_to: localhost

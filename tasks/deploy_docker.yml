@@ -9,7 +9,7 @@
       - virtualenv
       - python3-setuptools
     state: present
-    update_cache: yes
+    update_cache: true
   become: true
 
 - name: Add Docker GPG apt Key
@@ -33,5 +33,5 @@
       - docker-buildx-plugin
       - docker-compose-plugin
     state: present
-    update_cache: yes
+    update_cache: true
   become: true
