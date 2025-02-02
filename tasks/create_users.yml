@@ -9,7 +9,7 @@
     dest: /etc/sudoers.d/ansible
     owner: root
     group: root
-    mode: ug=r,o=
+    mode: '0440'
 
 - name: Create michel
   ansible.builtin.user:
@@ -22,7 +22,7 @@
     dest: /etc/sudoers.d/michel
     owner: root
     group: root
-    mode: ug=r,o=
+    mode: '0440'
 
 - name: Enable SSH as root (cuz f'in ProxMox)
   ansible.builtin.lineinfile:

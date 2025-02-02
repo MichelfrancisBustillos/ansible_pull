@@ -1,25 +1,30 @@
 - name: Install Unattended-Upgrades
   ansible.builtin.apt:
-    name:
-      - unattended-upgrades
+    name: unattended-upgrades
+    state: present
+    update_cache: yes
+  become: true
 
 - name: Copy unattended-upgrades config
   ansible.builtin.copy:
     src: files/50unattended-upgrades
     dest: /etc/apt/apt.conf.d/50unattended-upgrades
     force: true
-    mode: u=rw,go=r
+    mode: '0644'
+  become: true
 
 - name: Copy auto-upgrades config
   ansible.builtin.copy:
     src: files/20auto-upgrades
     dest: /etc/apt/apt.conf.d/20auto-upgrades
-    mode: u=rw,go=r
+    mode: '0644'
+  become: true
 
 - name: Dpkg reconfigure
   ansible.builtin.command: dpkg-reconfigure -f noninteractive unattended-upgrades
   register: dpkg_reconfigure_unattended_upgrades
   changed_when: dpkg_reconfigure_unattended_upgrades != ""
+  become: true
 
 - name: Enable systemd service
   ansible.builtin.systemd:
@@ -27,3 +32,4 @@
     state: started
     enabled: true
     daemon_reload: true
+  become: true

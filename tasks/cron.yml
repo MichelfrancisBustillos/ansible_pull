@@ -1,7 +1,9 @@
 - name: Install Cron
   ansible.builtin.apt:
-    name:
-      - cron
+    name: cron
+    state: present
+    update_cache: yes
+  become: true
 
 - name: Install cron job (ansible-pull)
   ansible.builtin.cron:
@@ -9,4 +11,5 @@
     name: "ansible provision"
     minute: "0"
     hour: "*/6"
-    job: "/usr/bin/ansible-pull -o -U https://github.com/MichelfrancisBustillos/ansible_pull.git --vault-password-file /home/michel/.vault_pass.txt> /dev/null"
+    job: "/usr/bin/ansible-pull -o -U https://github.com/MichelfrancisBustillos/ansible_pull.git --vault-password-file /home/michel/.vault_pass.txt > /dev/null"
+  become: true

@@ -2,24 +2,34 @@
   ansible.builtin.apt:
     name: nano
     state: absent
+  become: true
 
 - name: Install Sudo
   ansible.builtin.apt:
     name: sudo
+    state: present
+  become: true
 
 - name: Install micro
   ansible.builtin.apt:
     name: micro
+    state: present
+  become: true
 
 - name: Install bat
   ansible.builtin.apt:
     name: bat
+    state: present
+  become: true
 
 - name: Install community.general collection
   ansible.builtin.command: ansible-galaxy collection install community.general
   register: install_general
   changed_when: '"Nothing to do." not in install_general.stdout'
+  become: true
 
 - name: Install Pipx
   ansible.builtin.apt:
     name: pipx
+    state: present
+  become: true

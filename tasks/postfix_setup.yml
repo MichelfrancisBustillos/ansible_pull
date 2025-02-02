@@ -20,7 +20,7 @@
     dest: /etc/postfix/sasl_passwd
     owner: root
     group: root
-    mode: u=rw,go=
+    mode: '0600'
     force: true
   when: email_key is defined
 
@@ -28,7 +28,7 @@
   ansible.builtin.copy:
     src: files/main.cf
     dest: /etc/postfix/main.cf
-    mode: u=rw,go=r
+    mode: '0644'
     force: true
 
 - name: Hash sasl_passwd

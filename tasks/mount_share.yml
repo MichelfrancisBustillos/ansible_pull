@@ -2,12 +2,15 @@
   ansible.builtin.apt:
     name: cifs-utils
     state: present
+    update_cache: yes
+  become: true
 
 - name: Create Mount Point
   ansible.builtin.file:
     path: /mnt/Hoard
     state: directory
-    mode: u=rw,go=rw
+    mode: '0775'
+  become: true
 
 - name: Mount Share
   vars:
@@ -22,6 +25,7 @@
     path: /mnt/Hoard
     src: //srv3.katoteros.org/Hoard
     fstype: cifs
-    opts: "rw,nobrl,user=admin,password={{ password }},uid=michel"  # noqa: jinja[invalid]
+    opts: "rw,nobrl,user=admin,password={{ password }},uid=michel" # noqa: jinja[invalid]
     state: mounted
   when: password is defined
+  become: true

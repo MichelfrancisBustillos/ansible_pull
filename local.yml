@@ -8,6 +8,7 @@
       ansible.builtin.apt:
         update_cache: true
       changed_when: false
+
     - name: Gather the package facts
       ansible.builtin.package_facts:
         manager: auto
@@ -18,30 +19,63 @@
       block:
         - name: Install initial packages
           ansible.builtin.include_tasks: tasks/initial_packages.yml
+
         - name: Create users michel and ansible
           ansible.builtin.include_tasks: tasks/create_users.yml
+
         - name: Install ansible cron task
           ansible.builtin.include_tasks: tasks/cron.yml
+
         - name: Install bashrc and bash_aliases
           ansible.builtin.include_tasks: tasks/bash_configs.yml
+
         - name: Mount Share
           ansible.builtin.include_tasks: tasks/mount_share.yml
+
         - name: Setup Postfix
           ansible.builtin.include_tasks: tasks/postfix_setup.yml
+
         - name: Setup Unattended Upgrades
           ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
+
         - name: Deploy Glances
           ansible.builtin.include_tasks: tasks/deploy_glances.yml
+
         - name: Deploy Docker
           ansible.builtin.include_tasks: tasks/deploy_docker.yml
+
         - name: Deploy NetData
           ansible.builtin.include_tasks: tasks/netdata_deploy.yml
+
         - name: Deploy Tailscale
           ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
+
       rescue:
-        - name: Notify
-          ansible.builtin.debug:
-            msg: "Something went wrong, please check the logs"
+        - name: Set rescue fact
+          ansible.builtin.set_fact:
+            tasks_rescued: true
+
+      always:
+        - name: Set task counts
+          ansible.builtin.set_fact:
+            tasks_successful: "{{ ansible_stats.ok }}"
+            tasks_failed: "{{ ansible_stats.failures }}"
+            tasks_rescued: "{{ ansible_stats.rescued | default(0) }}"
+
+    - name: Send Pushover notification
+      ansible.builtin.uri:
+        url: https://api.pushover.net/1/messages.json
+        method: POST
+        body_format: form-urlencoded
+        body:
+          token: "YOUR_APP_TOKEN"
+          user: "YOUR_USER_KEY"
+          message: "The Ansible playbook has completed running on {{ ansible_hostname }} at {{ ansible_date_time.iso8601 }}. Tasks successful: {{ tasks_successful }}, Tasks failed: {{ tasks_failed }}, Tasks rescued: {{ tasks_rescued }}."
+          title: "Ansible Playbook Notification"
+        headers:
+          Content-Type: "application/x-www-form-urlencoded"
+      delegate_to: localhost
+      tags: notification
 
   handlers:
     - name: Restart SSHD

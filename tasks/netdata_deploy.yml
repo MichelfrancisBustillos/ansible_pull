@@ -2,7 +2,7 @@
   ansible.builtin.get_url:
     dest: /tmp/netdata-kickstart.sh
     url: https://get.netdata.cloud/kickstart.sh
-    mode: a=rwx
+    mode: '0755'
     force: true
 
 - name: Install NetData

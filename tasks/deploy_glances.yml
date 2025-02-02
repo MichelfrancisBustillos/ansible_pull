@@ -13,7 +13,7 @@
     src: files/glances.service
     dest: /etc/systemd/system/glances.service
     force: true
-    mode: u=rw,go=r
+    mode: '0644'
 
 - name: Enable Glances service
   ansible.builtin.systemd:

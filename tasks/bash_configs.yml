@@ -1,7 +1,6 @@
 - name: Install Neofetch
   ansible.builtin.apt:
-    name:
-      - neofetch
+    name: neofetch
 
 - name: Copy bashrc
   ansible.builtin.copy:
@@ -9,7 +8,7 @@
     dest: /home/michel/.bashrc
     owner: michel
     force: true
-    mode: u=rw,go=r
+    mode: '0644'
 
 - name: Copy bash_aliases
   ansible.builtin.copy:
@@ -17,7 +16,7 @@
     dest: /home/michel/.bash_aliases
     owner: michel
     force: true
-    mode: u=rw,go=r
+    mode: '0644'
 
 - name: No MOTD on SSH login
   ansible.builtin.copy:
@@ -25,4 +24,4 @@
     dest: /home/michel/.hushlogin
     force: true
     owner: michel
-    mode: u=rw,go=r
+    mode: '0644'
