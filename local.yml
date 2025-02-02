@@ -3,9 +3,6 @@
   connection: localhost
   become: true
 
-  vars:
-    tasks_failure: false
-
   pre_tasks:
     - name: Update repos
       ansible.builtin.apt:
@@ -17,6 +14,10 @@
         manager: auto
 
   tasks:
+    - name: Notify testing branch
+      ansible.builtin.debug:
+        msg: "This is the testing branch"
+
     - name: Execute all tasks
       ignore_errors: true # noqa: ignore-errors
       block:
@@ -52,51 +53,6 @@
 
         - name: Deploy Tailscale
           ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
-
-        - name: Nofity
-          ansible.builtin.debug:
-            msg: "Test notification"
-      always:
-        - name: Set Task Failure Flag
-          ansible.builtin.set_fact:
-            tasks_failure: true
-          when: ansible_failed_task is defined and ansible_failed_task.ignored
-  
-    - name: Notifications
-      block:
-      - name: Send Pushover notification (No Failure)
-        ansible.builtin.uri:
-          url: https://api.pushover.net/1/messages.json
-          method: POST
-          body_format: form-urlencoded
-          body:
-            token: "a3hptta2gtupjywpjfd6gvkay7zsgc"
-            user: "u8opak5mxtzxkbrvf5f4sgo6uidwhz"
-            message: "All Tasks Completed Successfully!"
-            title: "Ansible Run on {{ ansible_hostname }}"
-            priority: "-1"
-          headers:
-            Content-Type: "application/x-www-form-urlencoded"
-        delegate_to: localhost
-        tags: notification
-        when: tasks_failure == false
-
-      - name: Send Pushover Notificataion (Failure)
-        ansible.builtin.uri:
-          url: https://api.pushover.net/1/messages.json
-          method: POST
-          body_format: form-urlencoded
-          body:
-            token: "a3hptta2gtupjywpjfd6gvkay7zsgc"
-            user: "u8opak5mxtzxkbrvf5f4sgo6uidwhz"
-            message: "Tasks Failed on {{ ansible_hostname }}"
-            title: "Ansible Run on {{ ansible_hostname }}"
-            priority: "1"
-          headers:
-            Content-Type: "application/x-www-form-urlencoded"
-        delegate_to: localhost
-        tags: notification
-        when: tasks_failure == true
 
   handlers:
     - name: Restart SSHD
