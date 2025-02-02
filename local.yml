@@ -37,18 +37,14 @@
       block:
         - name: Include tasks
           ansible.builtin.include_tasks: "{{ current_task }}"
-          loop: "{{ task_list }}"
-          loop_control:
-            loop_var: current_task
       rescue:
         - name: Handle task failure
           ansible.builtin.debug:
             msg: "Task {{ current_task }} failed"
-      always:
-        - name: Notify task completion
-          ansible.builtin.debug:
-            msg: "Task {{ current_task }} completed"
-
+      loop: "{{ task_list }}"
+      loop_control:
+        loop_var: current_task
+  
   handlers:
     - name: Restart SSHD
       ansible.builtin.service:
