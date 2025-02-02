@@ -1,4 +1,5 @@
-- block:
+- name: Deploy Glances
+  block:
     - name: Install Pipx Components
       vars:
         pipx_packages:
