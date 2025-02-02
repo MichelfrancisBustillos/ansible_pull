@@ -1,19 +1,13 @@
-- block:
-    - name: Download Tailscale Install Script
-      ansible.builtin.get_url:
-        url: https://tailscale.com/install.sh
-        dest: /tmp/tailscale_install.sh
-        mode: '0755'
-        force: true
-
-    - name: Install Tailscale
-      ansible.builtin.command: bash /tmp/tailscale_install.sh
-      register: result
-      changed_when: "'0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.' not in result.stdout"
-
-    - name: Auth and Enable Tailscale
-      vars:
-        tskey: !vault |
+- name: Deploy Tailscale
+  block:
+    - name: Tailscale Role
+      hosts: localhost
+      connection: localhost
+      become: true
+      roles:
+        - role: artis3n.tailscale
+          vars:
+            tailscale_auth_key: !vault |
               $ANSIBLE_VAULT;1.1;AES256
               31663265633530313166666265633437663835303736663264393437336237363362663130353536
               3333643464393439386631373630663133353731386139390a663937353863666632333062336339
@@ -22,15 +16,9 @@
               38326232333166396234633066303239386436333764643530376636346534383937663538383133
               32373830653964393130396161633239653236653533333731613833636332326363376261656333
               623464363331303335313430346232313065
-      ansible.builtin.command: "{{ 'sudo tailscale up --authkey ' ~ tskey ~ ' --ssh' }}" # noqa: jinja[invalid]
-      register: tailscale_result
-      changed_when: tailscale_result.stdout != ""
-      when: tskey is defined
+            tailscale_args: "--ssh"
 
   rescue:
     - name: Handle failure
       ansible.builtin.debug:
         msg: "An error occurred during tailscale deployment."
-    - name: Increment failure counter
-      ansible.builtin.set_fact:
-        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"
