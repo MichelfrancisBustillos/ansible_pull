@@ -54,7 +54,7 @@
           user: "u8opak5mxtzxkbrvf5f4sgo6uidwhz"
           title: "Ansible ran on {{ ansible_hostname }}"
           message: "Failure counter: {{ failure_counter }}"
-          priority: "{{ '1' if failure_counter > 0 else '-1' }}"
+          priority: "{{ '-1' if failure_counter = '0' else '1' }}"
         headers:
           Content-Type: "application/x-www-form-urlencoded"
 
