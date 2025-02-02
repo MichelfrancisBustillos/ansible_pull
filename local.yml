@@ -3,6 +3,9 @@
   connection: localhost
   become: true
 
+  vars:
+    tasks_rescued: 0
+
   pre_tasks:
     - name: Update repos
       ansible.builtin.apt:
@@ -15,7 +18,7 @@
 
   tasks:
     - name: Execute all tasks
-      ignore_errors: true # noqa: ignore-errors
+      # ignore_errors: true # noqa: ignore-errors
       block:
         - name: Install initial packages
           ansible.builtin.include_tasks: tasks/initial_packages.yml
