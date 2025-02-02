@@ -40,11 +40,6 @@
       register: task_result
       ignore_errors: true
 
-    - name: Increment failure counter
-      set_fact:
-        failure_counter: "{{ failure_counter + 1 }}"
-      when: task_result.failed
-
     - name: Output failure counter
       ansible.builtin.debug:
         msg: "Failure counter: {{ failure_counter }}"
