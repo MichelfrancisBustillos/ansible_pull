@@ -36,7 +36,7 @@
       # ignore_errors: true # noqa: ignore-errors
       block:
         - name: Include tasks
-          ansible.builtin.include_tasks: "{{ item }}"
+          ansible.builtin.include_tasks: "{{ current_task }}"
           loop: "{{ task_list }}"
           loop_control:
             loop_var: current_task
