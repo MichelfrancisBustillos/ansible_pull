@@ -7,14 +7,14 @@
         update_cache: true
       become: true
 
-    - name: Create Mount Point
+    - name: Create Mount Point - The Hoard
       ansible.builtin.file:
         path: /mnt/Hoard
         state: directory
         mode: '0775'
       become: true
 
-    - name: Mount Share
+    - name: Mount Share - The Hoard
       vars:
         password: !vault |
                   $ANSIBLE_VAULT;1.1;AES256
@@ -31,6 +31,32 @@
         state: mounted
       when: password is defined
       become: true
+    
+    - name: Create Mount Point - TheArk
+      ansible.builtin.file:
+        path: /mnt/Ark
+        state: directory
+        mode: '0775'
+      become: true
+
+    - name: Mount Share - The Ark
+      vars:
+        password: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          34316434623331323134663934643630643263646331373761613666306534323937636361323639
+          6539613837353163363965323966653736623734383861330a653935396261633031333562646535
+          31666330643066663833303133626539643138393362313332343331346435346634306161666437
+          6634306665653636350a303235303664633630356537396537393030373831663130666530316632
+          30306530613535636231333438643430356263643336333661356139653463666331
+      ansible.posix.mount:
+        path: /mnt/Ark
+        src: //ark.katoteros.org/Media
+        fstype: cifs
+        opts: "rw,nobrl,user=server,password={{ password }}" # noqa: jinja[invalid]
+        state: mounted
+      when: password is defined
+      become: true
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
