@@ -53,6 +53,10 @@
         - name: Deploy Tailscale
           ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
 
+        - name: Nofity
+          ansible.builtin.debug:
+            msg: "Test notification"
+
       rescue:
         - name: Set rescue fact
           ansible.builtin.set_fact:
