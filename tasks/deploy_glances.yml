@@ -27,3 +27,6 @@
     - name: Handle failure
       ansible.builtin.debug:
         msg: "An error occurred during glances deployment."
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"

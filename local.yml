@@ -15,7 +15,7 @@
       - tasks/deploy_tailscale.yml
       - tasks/deploy_glances.yml
       - tasks/deploy_docker.yml
-      
+    failure_counter: 0
 
   pre_tasks:
     - name: Update repos
@@ -33,12 +33,22 @@
         msg: "This is the testing branch"
 
     - name: Execute all tasks
-      # ignore_errors: true # noqa: ignore-errors
       ansible.builtin.include_tasks: "{{ current_task }}"
       loop: "{{ task_list }}"
       loop_control:
         loop_var: current_task
-  
+      register: task_result
+      ignore_errors: true
+
+    - name: Increment failure counter
+      set_fact:
+        failure_counter: "{{ failure_counter + 1 }}"
+      when: task_result.failed
+
+    - name: Output failure counter
+      ansible.builtin.debug:
+        msg: "Failure counter: {{ failure_counter }}"
+
   handlers:
     - name: Restart SSHD
       ansible.builtin.service:

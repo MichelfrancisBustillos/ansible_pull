@@ -19,3 +19,6 @@
     - name: Handle task failure
       ansible.builtin.debug:
         msg: "A task in the cron configuration block failed"
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"
