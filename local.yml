@@ -56,10 +56,6 @@
       register: task_result
       ignore_errors: true
 
-    - name: Output failure counter
-      ansible.builtin.debug:
-        msg: "Failure counter: {{ failure_counter }}"
-
     - name: Send Pushover notification
       ansible.builtin.uri:
         url: "https://api.pushover.net/1/messages.json"
