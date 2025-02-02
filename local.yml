@@ -6,6 +6,7 @@
   vars:
     tasks_successful: 0
     tasks_failed: 0
+    tasks_skipped: 0
 
   pre_tasks:
     - name: Update repos
@@ -66,6 +67,10 @@
           ansible.builtin.set_fact:
             tasks_failed: "{{ tasks_failed | int + 1 }}"
           when: ansible_failed_task is defined
+        - name: Increment skipped tasks count
+          ansible.builtin.set_fact:
+            tasks_skipped: "{{ tasks_skipped | int + 1 }}"
+          when: ansible_skipped_tasks is defined
 
     - name: Send Pushover notification
       ansible.builtin.uri:
@@ -75,7 +80,7 @@
         body:
           token: "a3hptta2gtupjywpjfd6gvkay7zsgc"
           user: "u8opak5mxtzxkbrvf5f4sgo6uidwhz"
-          message: "Tasks successful: {{ tasks_successful }}, Tasks failed: {{ tasks_failed }}"
+          message: "Tasks successful: {{ tasks_successful }}, Tasks failed: {{ tasks_failed }}, Tasks skipped: {{ tasks_skipped }}"
           title: "Ansible Run on {{ ansible_hostname }}"
           priority: "-1"
         headers:

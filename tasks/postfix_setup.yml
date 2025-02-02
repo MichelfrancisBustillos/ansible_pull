@@ -40,3 +40,4 @@
     name: postfix
     state: restarted
     enabled: true
+    changed_when: false

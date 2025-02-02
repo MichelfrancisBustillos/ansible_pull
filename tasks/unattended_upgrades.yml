@@ -23,7 +23,7 @@
 - name: Dpkg reconfigure
   ansible.builtin.command: dpkg-reconfigure -f noninteractive unattended-upgrades
   register: dpkg_reconfigure_unattended_upgrades
-  changed_when: dpkg_reconfigure_unattended_upgrades != ""
+  changed_when: false
   become: true
 
 - name: Enable systemd service
