@@ -3,6 +3,20 @@
   connection: localhost
   become: true
 
+  vars:
+    task_list:
+      - tasks/initial_packages.yml
+      - tasks/create_users.yml
+      - tasks/cron.yml
+      - tasks/bash_configs.yml
+      - tasks/mount_share.yml
+      - tasks/postfix_setup.yml
+      - tasks/unattended_upgrades.yml
+      - tasks/deploy_glances.yml
+      - tasks/deploy_docker.yml
+      - tasks/netdata_deploy.yml
+      - tasks/deploy_tailscale.yml
+
   pre_tasks:
     - name: Update repos
       ansible.builtin.apt:
@@ -21,38 +35,13 @@
     - name: Execute all tasks
       ignore_errors: true # noqa: ignore-errors
       block:
-        - name: Install initial packages
-          ansible.builtin.include_tasks: tasks/initial_packages.yml
-
-        - name: Create users michel and ansible
-          ansible.builtin.include_tasks: tasks/create_users.yml
-
-        - name: Install ansible cron task
-          ansible.builtin.include_tasks: tasks/cron.yml
-
-        - name: Install bashrc and bash_aliases
-          ansible.builtin.include_tasks: tasks/bash_configs.yml
-
-        - name: Mount Share
-          ansible.builtin.include_tasks: tasks/mount_share.yml
-
-        - name: Setup Postfix
-          ansible.builtin.include_tasks: tasks/postfix_setup.yml
-
-        - name: Setup Unattended Upgrades
-          ansible.builtin.include_tasks: tasks/unattended_upgrades.yml
-
-        - name: Deploy Glances
-          ansible.builtin.include_tasks: tasks/deploy_glances.yml
-
-        - name: Deploy Docker
-          ansible.builtin.include_tasks: tasks/deploy_docker.yml
-
-        - name: Deploy NetData
-          ansible.builtin.include_tasks: tasks/netdata_deploy.yml
-
-        - name: Deploy Tailscale
-          ansible.builtin.include_tasks: tasks/deploy_tailscale.yml
+        - name: Include tasks
+          ansible.builtin.include_tasks: "{{ item }}"
+          loop: "{{ task_list }}"
+      rescue:
+        - name: Handle task failure
+          ansible.builtin.debug:
+            msg: "Task {{ item }} failed"
 
   handlers:
     - name: Restart SSHD
