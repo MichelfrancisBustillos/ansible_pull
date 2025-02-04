@@ -31,7 +31,7 @@
         state: mounted
       when: password is defined
       become: true
-    
+
     - name: Create Mount Point - TheArk
       ansible.builtin.file:
         path: /mnt/Ark
