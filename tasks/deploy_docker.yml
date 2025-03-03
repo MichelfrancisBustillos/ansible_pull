@@ -37,6 +37,11 @@
         state: present
         update_cache: true
       become: true
+
+    - name: Deploy Portainer Agent
+      ansible.builtin.include_role:
+        name: gendall.portainer_agent
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:

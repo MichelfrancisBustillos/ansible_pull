@@ -12,7 +12,6 @@
       - tasks/mount_share.yml
       - tasks/postfix_setup.yml
       - tasks/unattended_upgrades.yml
-      - tasks/deploy_tailscale.yml
       - tasks/deploy_glances.yml
       - tasks/deploy_docker.yml
     failure_counter: 0
@@ -36,6 +35,10 @@
     - name: Install artis3n.tailscale role
       ansible.builtin.command:
         cmd: ansible-galaxy install artis3n.tailscale
+      changed_when: false
+    - name: Install gendall.portainer_agent role
+      ansible.builtin.command:
+        cmd: ansible-galaxy install gendall.portainer_agent
       changed_when: false
 
     - name: Update repos
