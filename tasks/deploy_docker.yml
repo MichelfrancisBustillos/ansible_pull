@@ -76,7 +76,7 @@
           WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER: "michelfrancisb@gmail.com"
           WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD: "{{ email_password }}" # noqa: jinja[invalid]
           WATCHTOWER_NOTIFICATIONS: "email"
-          WATCHTOWER_NOTIFICATION_EMAIL_SUBJECT: "Watchtower Update Notification" 
+          WATCHTOWER_NOTIFICATION_EMAIL_SUBJECT: "Watchtower Update Notification"
         state: started
       become: true
 
