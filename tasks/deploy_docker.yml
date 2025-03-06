@@ -44,7 +44,7 @@
 
     - name: Check if Portainer agent is running
       ansible.builtin.command:
-        cmd: docker ps --filter "name=portainer_agent" --format "{{ .Status }}"
+        cmd: sudo docker ps --filter "name=portainer_agent" --format "{{ .Status }}"
       register: portainer_agent_status
       changed_when: false
 
@@ -60,7 +60,7 @@
 
     - name: Check if Watchtower is running
       ansible.builtin.command:
-        cmd: docker ps --filter "name=watchtower" --format "{{ .Status }}"
+        cmd: sudo docker ps --filter "name=watchtower" --format "{{ .Status }}"
       register: watchtower_status
       changed_when: false
 
@@ -78,6 +78,7 @@
       ansible.builtin.command:
         cmd: docker run -d \
              --name watchtower \
+             --restart=always \
              -v /var/run/docker.sock:/var/run/docker.sock \
              --cleanup \
              -e WATCHTOWER_NOTIFICATION_EMAIL_FROM="watchtower@katoteros.org" \
