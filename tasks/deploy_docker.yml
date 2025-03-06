@@ -38,12 +38,8 @@
         update_cache: true
       become: true
 
-    - name: Get Docker Container Info
-      docker_container_info:
-        name: portainer
-
     - name: Check if Portainer agent is running
-      docker_container_info:
+      community.docker.docker_container_info:
         name: portainer_agent
       register: portainer_agent_status
       changed_when: false
@@ -55,11 +51,11 @@
              -v /var/lib/docker/volumes:/var/lib/docker/volumes \
              -v /:/host portainer/agent:2.27.1
       become: true
-      when: portainer_agent_status.container is not defined
+      when: portainer_agent_status is not defined
       changed_when: false
 
     - name: Check if Watchtower is running
-      docker_container_info:
+      community.docker.docker_container_info:
         name: watchtower
       register: watchtower_status
       changed_when: false
@@ -90,7 +86,7 @@
              -e WATCHTOWER_NOTIFICATIONS=email \
              containrrr/watchtower # noqa: jinja[invalid]
       become: true
-      when: watchtower_status.container is not defined
+      when: watchtower_status is not defined
       changed_when: false
 
   rescue:
