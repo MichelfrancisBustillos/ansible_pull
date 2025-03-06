@@ -47,6 +47,33 @@
       become: true
       changed_when: false
 
+    - name: Deploy Watchtower
+      vars:
+        email_key: !vault |
+                $ANSIBLE_VAULT;1.1;AES256
+                64643231626239376133346130663762633863326432643839666461613732396239343535333263
+                3235373665646663363065346535383139666532313263660a666630653633333236333637386332
+                31616165613631663436653064383832356137656465636531353534376239666138613433653962
+                3361396133326566660a383932346663626632373134313161353764343737643264386332303064
+                65623966623364356365346634663234306236396266373535316266613462653537656431386537
+                39333961636166666439633761303965333035653936316165643936366533336431623563303036
+                373062303961393233396239313532373332
+      ansible.builtin.command:
+        cmd: docker run -d \
+             --name watchtower \
+             -v /var/run/docker.sock:/var/run/docker.sock \
+             --cleanup \
+             -e WATCHTOWER_NOTIFICATION_EMAIL_FROM="watchtower@katoteros.org" \
+             -e WATCHTOWER_NOTIFICATION_EMAIL_TO="kotbe2hiax@pomail.net" \
+             -e WATCHTOWER_NOTIFICATION_EMAIL_SERVER="smtp.gmail.com" \
+             -e WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT="587" \
+             -e WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER="michelfrancisb@gmail.com" \
+             -e WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD="{{ email_key }}" \
+             -e WATCHTOWER_NOTIFICATIONS=email \
+             containrrr/watchtower # noqa: jinja[invalid]
+      become: true
+      changed_when: false
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
