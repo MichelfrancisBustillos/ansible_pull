@@ -51,7 +51,6 @@
         restart_policy: always
         state: started
       become: true
-      changed_when: false
 
     - name: Deploy Watchtower
       vars:
@@ -73,14 +72,13 @@
           WATCHTOWER_NOTIFICATION_EMAIL_FROM: "watchtower@katoteros.org"
           WATCHTOWER_NOTIFICATION_EMAIL_TO: "kotbe2hiax@pomail.net"
           WATCHTOWER_NOTIFICATION_EMAIL_SERVER: "smtp.gmail.com"
-          WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT: 587
+          WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT: "587"
           WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER: "michelfrancisb@gmail.com"
           WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD: "{{ email_password }}" # noqa: jinja[invalid]
           WATCHTOWER_NOTIFICATIONS: "email"
           WATCHTOWER_NOTIFICATION_EMAIL_SUBJECT: "Watchtower Update Notification" 
         state: started
       become: true
-      changed_when: false
 
   rescue:
     - name: Handle task failure
