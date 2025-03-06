@@ -76,7 +76,7 @@
              --name watchtower \
              --restart=always \
              -v /var/run/docker.sock:/var/run/docker.sock \
-             -cleanup \
+             -e WATCHTOWER_CLEANUP=true \
              -e WATCHTOWER_NOTIFICATION_EMAIL_FROM="watchtower@katoteros.org" \
              -e WATCHTOWER_NOTIFICATION_EMAIL_TO="kotbe2hiax@pomail.net" \
              -e WATCHTOWER_NOTIFICATION_EMAIL_SERVER="smtp.gmail.com" \
