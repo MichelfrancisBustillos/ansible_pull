@@ -16,6 +16,22 @@
         job: "/usr/bin/ansible-pull -o -U https://github.com/MichelfrancisBustillos/ansible_pull.git \
               --vault-password-file /home/michel/.vault_pass.txt > /dev/null"
       become: true
+
+    - name: Copy script file
+      ansible.builtin.copy:
+        src: files/diskAlert.sh
+        dest: "/usr/local/bin/diskAlert.sh"
+        force: true
+        mode: '0777'
+
+    - name: Install cron job diskAlert
+      ansible.builtin.cron:
+        user: root
+        name: "diskAlert"
+        minute: "0"
+        hour: "*/1"
+        job: "/usr/local/bin/diskAlert.sh > /dev/null"
+      become: true
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
