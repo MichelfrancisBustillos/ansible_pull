@@ -14,6 +14,7 @@
       - tasks/unattended_upgrades.yml
       - tasks/deploy_glances.yml
       - tasks/deploy_docker.yml
+      - tasks/deploy_beszel-agent.yml
     failure_counter: 0
     pushover_token: !vault |
           $ANSIBLE_VAULT;1.1;AES256

@@ -1,0 +1,24 @@
+- name: Deploy Beszel Agent
+  block:
+    - name: Deploy Beszel Agent
+      community.general.docker_container:
+        name: beszel_agent
+        image: henrygd/beszel-agent
+        volumes:
+          - "/var/run/docker.sock:/var/run/docker.sock"
+        env:
+          LISTEN: 45876
+          KEY: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzSuEuOI04HL"
+        network_mode: host
+        restart_policy: always
+        state: started
+
+  rescue:
+    - name: Handle task failure
+      ansible.builtin.debug:
+        msg: "A task in the Beszel-Agent block failed"
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"
+
+    
