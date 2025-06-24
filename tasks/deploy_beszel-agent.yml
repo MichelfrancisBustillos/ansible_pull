@@ -7,7 +7,7 @@
         volumes:
           - "/var/run/docker.sock:/var/run/docker.sock"
         env:
-          LISTEN: 45876
+          LISTEN: "45876"
           KEY: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzSuEuOI04HL"
         network_mode: host
         restart_policy: always
