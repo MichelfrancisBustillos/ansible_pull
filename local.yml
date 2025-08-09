@@ -12,9 +12,9 @@
       - tasks/mount_share.yml
       - tasks/postfix_setup.yml
       - tasks/unattended_upgrades.yml
-      - tasks/deploy_tailscale.yml
       - tasks/deploy_glances.yml
       - tasks/deploy_docker.yml
+      - tasks/deploy_beszel-agent.yml
     failure_counter: 0
     change_counter: 0
     pushover_token: !vault |

@@ -4,15 +4,7 @@
       ansible.builtin.user:
         name: ansible
         system: true
-      become: true
-
-    - name: Copy sudoers_ansible
-      ansible.builtin.copy:
-        src: files/sudoers_ansible
-        dest: /etc/sudoers.d/ansible
-        owner: root
-        group: root
-        mode: '0440'
+        groups: sudo
       become: true
 
     - name: Create michel
@@ -27,15 +19,8 @@
       ansible.builtin.user:
         name: michel
         password: "{{ userpwd | string | password_hash('sha512', 'MnFBb7vfYNYt') }}" # noqa: jinja[invalid]
-      become: true
-
-    - name: Copy sudoers_michel
-      ansible.builtin.copy:
-        src: files/sudoers_michel
-        dest: /etc/sudoers.d/michel
-        owner: root
-        group: root
-        mode: '0440'
+        shell: /bin/bash
+        groups: sudo
       become: true
 
     - name: Enable SSH as root (cuz f'in ProxMox)

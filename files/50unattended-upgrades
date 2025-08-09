@@ -72,7 +72,7 @@ Unattended-Upgrade::DevRelease "auto";
 // If empty or unset then no email is sent, make sure that you
 // have a working mail setup on your system. A package that provides
 // 'mailx' must be installed. E.g. "user@example.com"
-Unattended-Upgrade::Mail "kotbe2hiax@pomail.net";
+Unattended-Upgrade::Mail "uuguzxn7i1@pomail.net";
 
 // Set this value to one of:
 //    "always", "only-on-error" or "on-change"
