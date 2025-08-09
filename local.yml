@@ -48,6 +48,16 @@
       ansible.builtin.package_facts:
         manager: auto
 
+  handlers:
+    - name: Restart SSHD
+      ansible.builtin.service:
+        name: ssh
+        state: restarted
+
+    - name: Count Changes
+      ansible.builtin.set_fact:
+        change_counter: "{{ change_counter | int + 1 }}"
+
   tasks:
     - name: Execute all tasks
       ansible.builtin.include_tasks: "{{ current_task }}"
@@ -69,16 +79,6 @@
           message: |
             Failure counter: {{ failure_counter }}
             Change counter: {{ change_counter }}
-          priority: "{{ ('-1' if failure_counter == '0' else '1') | int }}"
+          priority: "{{ -1 if failure_counter == 0 else 1 }}"
         headers:
           Content-Type: "application/x-www-form-urlencoded"
-
-  handlers:
-    - name: Restart SSHD
-      ansible.builtin.service:
-        name: ssh
-        state: restarted
-
-    - name: Count Changes
-      ansible.builtin.set_fact:
-        change_counter: "{{ change_counter | default(0) | int + 1 }}"

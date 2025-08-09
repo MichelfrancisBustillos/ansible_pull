@@ -47,6 +47,7 @@
         name: iperf3
         state: present
       become: true
+      changed_when: true
       notify: Count Changes
   rescue:
     - name: Handle task failure
