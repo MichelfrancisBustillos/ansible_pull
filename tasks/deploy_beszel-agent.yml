@@ -20,5 +20,3 @@
     - name: Increment failure counter
       ansible.builtin.set_fact:
         failure_counter: "{{ failure_counter | default(0) | int + 1 }}"
-
-    

@@ -81,7 +81,7 @@
 
           WATCHTOWER_SCHEDULE: "0 0 20 * * 3"
           WATCHTOWER_NOTIFICATIONS: "shoutrrr"
-          WATCHTOWER_NOTIFICATION_URL: "pushover://shoutrrr:{{ pushover_token }}@{{ pushover_user }}"
+          WATCHTOWER_NOTIFICATION_URL: "pushover://shoutrrr:{{ pushover_token }}@{{ pushover_user }}" # noqa: jinja[invalid]
           TZ: "America/Chicago"
         state: started
       become: true
