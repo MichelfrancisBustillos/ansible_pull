@@ -52,12 +52,12 @@
     - name: Execute all tasks
       ansible.builtin.include_tasks: "{{ current_task }}"
       loop: "{{ task_list }}"
+      notify: 
+        - Count Changes
       loop_control:
         loop_var: current_task
       register: task_result
       ignore_errors: true
-      notify: 
-        - Count Changes
 
     - name: Send Pushover notification
       ansible.builtin.uri:
