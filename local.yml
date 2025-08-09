@@ -16,6 +16,7 @@
       - tasks/deploy_glances.yml
       - tasks/deploy_docker.yml
     failure_counter: 0
+    change_counter: 0
     pushover_token: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           33643336633035353030366461393132303438623765313636626262656335346234656466306431
@@ -65,7 +66,10 @@
           token: "{{ pushover_token }}" # noqa: jinja[invalid]
           user: "{{ pushover_user }}" # noqa: jinja[invalid]
           title: "Ansible ran on {{ ansible_hostname }}"
-          message: "Failure counter: {{ failure_counter }}"
+          message: |
+            Failure counter: {{ failure_counter }}
+            Change counter: {{ change_counter }}
+            Result: {{ task_result.results | map(attribute='msg') | join('\n') }}
           priority: "{{ ('-1' if failure_counter == '0' else '1') | int }}"
         headers:
           Content-Type: "application/x-www-form-urlencoded"
@@ -75,3 +79,7 @@
       ansible.builtin.service:
         name: ssh
         state: restarted
+
+    - name: Count Changes
+      ansible.builtin.set_fact:
+        change_counter: "{{ change_counter | default(0) | int + 1 }}"
