@@ -56,7 +56,8 @@
         loop_var: current_task
       register: task_result
       ignore_errors: true
-      notify: Count Changes
+      notify: 
+        - Count Changes
 
     - name: Send Pushover notification
       ansible.builtin.uri:
