@@ -10,6 +10,7 @@
         state: present
       with_items: "{{ pipx_packages }}"
       changed_when: false
+      notify: Count Changes
 
     - name: Copy service file
       ansible.builtin.copy:
@@ -17,6 +18,7 @@
         dest: /etc/systemd/system/glances.service
         force: true
         mode: '0644'
+      notify: Count Changes
 
     - name: Enable Glances service
       ansible.builtin.systemd:
@@ -24,6 +26,7 @@
         state: started
         enabled: true
         daemon_reload: true
+      notify: Count Changes
 
   rescue:
     - name: Handle failure

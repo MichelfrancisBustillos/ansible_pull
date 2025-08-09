@@ -5,42 +5,49 @@
         name: nano
         state: absent
       become: true
+      notify: Count Changes
 
     - name: Install Sudo
       ansible.builtin.apt:
         name: sudo
         state: present
       become: true
+      notify: Count Changes
 
     - name: Install micro
       ansible.builtin.apt:
         name: micro
         state: present
       become: true
+      notify: Count Changes
 
     - name: Install bat
       ansible.builtin.apt:
         name: bat
         state: present
       become: true
+      notify: Count Changes
 
     - name: Install community.general collection
       ansible.builtin.command: ansible-galaxy collection install community.general
       register: install_general
       changed_when: '"Nothing to do." not in install_general.stdout'
       become: true
+      notify: Count Changes
 
     - name: Install Pipx
       ansible.builtin.apt:
         name: pipx
         state: present
       become: true
+      notify: Count Changes
 
     - name: Install iperf3
       ansible.builtin.apt:
         name: iperf3
         state: present
       become: true
+      notify: Count Changes
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:

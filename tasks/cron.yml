@@ -6,6 +6,7 @@
         state: present
         update_cache: true
       become: true
+      notify: Count Changes
 
     - name: Install cron job (ansible-pull)
       ansible.builtin.cron:
@@ -16,6 +17,7 @@
         job: "/usr/bin/ansible-pull -o -U https://github.com/MichelfrancisBustillos/ansible_pull.git \
               --vault-password-file /home/michel/.vault_pass.txt > /dev/null"
       become: true
+      notify: Count Changes
 
     - name: Copy script file
       ansible.builtin.copy:
@@ -23,6 +25,7 @@
         dest: "/usr/local/bin/diskAlert.sh"
         force: true
         mode: '0777'
+      notify: Count Changes
 
     - name: Install cron job diskAlert
       ansible.builtin.cron:
@@ -32,6 +35,7 @@
         hour: "*/1"
         job: "/usr/local/bin/diskAlert.sh > /dev/null"
       become: true
+      notify: Count Changes
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:

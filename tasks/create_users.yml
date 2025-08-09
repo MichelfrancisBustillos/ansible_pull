@@ -6,6 +6,7 @@
         system: true
         groups: sudo
       become: true
+      notify: Count Changes
 
     - name: Create michel
       vars:
@@ -22,6 +23,7 @@
         shell: /bin/bash
         groups: sudo
       become: true
+      notify: Count Changes
 
     - name: Enable SSH as root (cuz f'in ProxMox)
       ansible.builtin.lineinfile:
@@ -32,6 +34,7 @@
         backup: true
       notify:
         - Restart SSHD
+        - Count Changes
       become: true
 
   rescue:

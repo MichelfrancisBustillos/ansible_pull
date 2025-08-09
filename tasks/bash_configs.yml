@@ -5,6 +5,7 @@
         name: neofetch
         state: present
       become: true
+      notify: Count Changes
 
     - name: Copy bashrc
       ansible.builtin.copy:
@@ -14,6 +15,7 @@
         force: true
         mode: '0644'
       become: true
+      notify: Count Changes
 
     - name: Copy bash_aliases
       ansible.builtin.copy:
@@ -23,6 +25,7 @@
         force: true
         mode: '0644'
       become: true
+      notify: Count Changes
 
     - name: No MOTD on SSH login
       ansible.builtin.copy:
@@ -32,6 +35,7 @@
         owner: michel
         mode: '0644'
       become: true
+      notify: Count Changes
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:

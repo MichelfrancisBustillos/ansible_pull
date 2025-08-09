@@ -12,6 +12,7 @@
         network_mode: host
         restart_policy: always
         state: started
+      notify: Count Changes
 
   rescue:
     - name: Handle task failure

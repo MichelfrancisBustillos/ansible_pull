@@ -5,6 +5,7 @@
         name:
           - libsasl2-modules
           - mailutils
+      notify: Count Changes
 
     - name: Copy sasl_passwd
       vars:
@@ -25,6 +26,7 @@
         mode: '0600'
         force: true
       when: email_key is defined
+      notify: Count Changes
 
     - name: Copy main.cf
       ansible.builtin.copy:
@@ -32,10 +34,12 @@
         dest: /etc/postfix/main.cf
         mode: '0644'
         force: true
+      notify: Count Changes
 
     - name: Hash sasl_passwd
       ansible.builtin.command: /usr/sbin/postmap hash:/etc/postfix/sasl_passwd
       changed_when: false
+      notify: Count Changes
 
     - name: Restart and Enable Postfix
       ansible.builtin.service:
@@ -43,6 +47,7 @@
         state: restarted
         enabled: true
       changed_when: false
+      notify: Count Changes
 
   rescue:
     - name: Handle failure
