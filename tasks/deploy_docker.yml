@@ -46,8 +46,7 @@
           Requires=mnt-Ark.mount
         dest: /etc/systemd/system/docker.service.d/override.conf
         mode: "0644"
-      ansible.builtin.command:
-        cmd: systemctl daemon-reload && systemctl restart docker
+        notify: Reload systemd & Restart Docker
       become: true
 
     - name: Deploy Portainer Agent
@@ -96,6 +95,12 @@
           WATCHTOWER_NOTIFICATION_URL: "pushover://shoutrrr:{{ pushover_token }}@{{ pushover_user }}" # noqa: jinja[invalid]
           TZ: "America/Chicago"
         state: started
+      become: true
+
+  handlers:
+    - name: Reload systemd & Restart Docker
+      ansible.builtin.command:
+        cmd: systemctl daemon-reload && systemctl restart docker
       become: true
 
   rescue:
