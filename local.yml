@@ -75,3 +75,8 @@
       ansible.builtin.service:
         name: ssh
         state: restarted
+
+    - name: Reload systemd & Restart Docker
+      ansible.builtin.command:
+        cmd: systemctl daemon-reload && systemctl restart docker
+      become: true

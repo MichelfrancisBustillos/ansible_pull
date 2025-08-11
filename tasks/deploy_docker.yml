@@ -97,12 +97,6 @@
         state: started
       become: true
 
-  handlers:
-    - name: Reload systemd & Restart Docker
-      ansible.builtin.command:
-        cmd: systemctl daemon-reload && systemctl restart docker
-      become: true
-
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
