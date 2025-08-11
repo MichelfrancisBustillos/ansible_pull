@@ -37,6 +37,18 @@
         state: present
         update_cache: true
       become: true
+  
+    - name: Docker Depends on Ark Mounting
+      ansible.builtin.copy:
+        content: |
+          [Unit]
+          After=mnt-Ark.mount
+          Requires=mnt-Ark.mount
+        dest: /etc/systemd/system/docker.service.d/override.conf
+        mode: "0644"
+      ansible.builtin.command:
+        cmd: systemctl daemon-reload && systemctl restart docker
+      become: true
 
     - name: Deploy Portainer Agent
       community.general.docker_container:
