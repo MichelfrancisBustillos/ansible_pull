@@ -46,7 +46,7 @@
           Requires=mnt-Ark.mount
         dest: /etc/systemd/system/docker.service.d/override.conf
         mode: "0644"
-        notify: Reload systemd & Restart Docker
+      notify: Reload systemd & Restart Docker
       become: true
 
     - name: Deploy Portainer Agent
