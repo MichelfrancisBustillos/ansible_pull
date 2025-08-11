@@ -37,19 +37,22 @@
         state: present
         update_cache: true
       become: true
+  
+    - name: Create systemd override directory
+      ansible.builtin.file:
+        path: /etc/systemd/system/docker.service.d
+        state: directory
+        mode: "0755"
 
-    - name: Deploy Portainer Agent
-      community.general.docker_container:
-        name: portainer_agent
-        image: portainer/agent:2.27.7
-        ports:
-          - "9001:9001"
-        volumes:
-          - "/var/run/docker.sock:/var/run/docker.sock"
-          - "/var/lib/docker/volumes:/var/lib/docker/volumes"
-          - "/:/host"
-        restart_policy: unless-stopped
-        state: started
+    - name: Docker Depends on Ark Mounting
+      ansible.builtin.copy:
+        content: |
+          [Unit]
+          After=mnt-Ark.mount
+          Requires=mnt-Ark.mount
+        dest: /etc/systemd/system/docker.service.d/override.conf
+        mode: "0644"
+      notify: Reload systemd & Restart Docker
       become: true
 
     - name: Deploy Watchtower
