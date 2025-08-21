@@ -7,11 +7,10 @@
         state: present
       become: true
 
-    - name: Add Tailscale Repository
-      ansible.builtin.apt_repository:
-        repo: https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list
-        state: present
-      become: true
+    - name: Add Tailscale repository
+      ansible.builtin.uri:
+        dest: /etc/apt/sources.list.d/tailscale.list
+        url: https://pkgs.tailscale.com/stable/ubuntu/jammy.tailscale-keyring.list
 
     - name: Install Tailscale
       ansible.builtin.apt:
