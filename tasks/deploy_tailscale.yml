@@ -1,8 +1,39 @@
 - name: Deploy Tailscale
   block:
-    - name: Include Tailscale role
-      ansible.builtin.include_role:
-        name: artis3n.tailscale
+
+    - name: Add Tailscale GPG apt Key
+      ansible.builtin.apt_key:
+        url: https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg
+        state: present
+      become: true
+
+    - name: Add Tailscale Repository
+      ansible.builtin.apt_repository:
+        repo: https://pkgs.tailscale.com/stable/ubuntu/noble.tailscale-keyring.list
+        state: present
+      become: true
+
+    - name: Install Tailscale
+      ansible.builtin.apt:
+      name: tailscale
+      state: present
+      update_cache: true
+      become: true
+
+    - name: Set userspace-networking mode
+      ansible.builtin.lineinfile:
+        path: /etc/default/tailscaled
+        regexp: '^FLAGS='
+        line: 'FLAGS="--tun=userspace-networking"'
+
+    - name: Enable and start Tailscale service
+      ansible.builtin.systemd:
+        name: tailscaled
+        enabled: true
+        state: started
+      become: true
+
+    - name: Tailscale authentication
       vars:
         tailscale_authkey: !vault |
           $ANSIBLE_VAULT;1.1;AES256
@@ -13,7 +44,9 @@
           37646361303838306231333764313630666133346461353831376532663932613964323338373735
           35343431396630306635663665383737383038383465666464626163653337333636643865333962
           616634663438656364643564333263666661
-        tailscale_args: "--ssh --tun=userspace-networking"
+        tailscale_args: "--ssh"
+      ansible.builtin.command: tailscale up --authkey={{ tailscale_authkey }} {{ tailscale_args }}
+      become: true
 
   rescue:
     - name: Handle failure
