@@ -1,19 +1,52 @@
 - name: Deploy Tailscale
   block:
-    - name: Include Tailscale role
-      ansible.builtin.include_role:
-        name: artis3n.tailscale
+
+    - name: Add Tailscale GPG apt Key
+      ansible.builtin.apt_key:
+        url: https://pkgs.tailscale.com/stable/ubuntu/noble.noarmor.gpg
+        state: present
+      become: true
+
+    - name: Add Tailscale Repository
+      ansible.builtin.apt_repository:
+        repo: deb https://pkgs.tailscale.com/stable/ubuntu noble main
+        state: present
+      become: true
+
+    - name: Install Tailscale
+      ansible.builtin.apt:
+        name: tailscale
+        state: present
+        update_cache: true
+      become: true
+
+    - name: Set userspace-networking mode
+      ansible.builtin.lineinfile:
+        path: /etc/default/tailscaled
+        regexp: '^FLAGS='
+        line: 'FLAGS="--tun=userspace-networking"'
+
+    - name: Enable and start Tailscale service
+      ansible.builtin.systemd:
+        name: tailscaled
+        enabled: true
+        state: started
+      become: true
+
+    - name: Tailscale authentication
       vars:
         tailscale_authkey: !vault |
           $ANSIBLE_VAULT;1.1;AES256
-          66313865306266636438373664333632393561373738643239656136343738306330373038393936
-          3939303936613930633932373935623562636134393533610a306661326363623137383838353262
-          62333737336437396530316565313735336430343062383136383831326639626635633863363138
-          3032336331626133650a613239343734333239303764393361386164633164366635386532326461
-          37646361303838306231333764313630666133346461353831376532663932613964323338373735
-          35343431396630306635663665383737383038383465666464626163653337333636643865333962
-          616634663438656364643564333263666661
+          61306562653030363933626230326161393130343435643366643938363662656138396130373934
+          6638663461303531326237653035303335346632363631310a333434326466363139326434356533
+          36306233656232363932386631656463326166616231653866636236363338383539626263633635
+          6531343161373930610a346364376231363132353932393335333139623765343566653837346536
+          34386431656562393238636361656330383766373733616164383962633532343832326630303235
+          62623431623463613139366537393933303838326138616631626533626136663631353934303334
+          636631653766306632346561616237643565
         tailscale_args: "--ssh"
+      ansible.builtin.command: tailscale up --authkey={{ tailscale_authkey }} {{ tailscale_args }} # noqa: jinja[invalid]
+      become: true
 
   rescue:
     - name: Handle failure
