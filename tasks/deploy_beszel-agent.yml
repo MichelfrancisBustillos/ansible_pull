@@ -10,7 +10,6 @@
           LISTEN: "45876"
           KEY: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKzSuEuOI04HLCnbRfy1RY/mtlYT6PeFJMo4qnZa0sct"
           HUB_URL: "https://monitor.katoteros.org"
-          TOKEN: "5bd3e484-11b0-499e-b8a3-cdc161094759"
         network_mode: host
         restart_policy: always
         state: started
