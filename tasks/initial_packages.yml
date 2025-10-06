@@ -41,6 +41,12 @@
         name: iperf3
         state: present
       become: true
+
+    - name: Install fd-find
+      ansible.builtin.apt:
+        name: fd-find
+        state: present
+      become: true
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
