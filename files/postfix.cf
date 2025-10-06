@@ -1,6 +1,6 @@
 # See /usr/share/postfix/main.cf.dist for a commented, more complete version
 
-myhostname=michel.katoteros.org
+myhostname=postfix.katoteros.org
 
 smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
 biff = no

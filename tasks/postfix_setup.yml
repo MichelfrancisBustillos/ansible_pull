@@ -26,9 +26,9 @@
         force: true
       when: email_key is defined
 
-    - name: Copy main.cf
+    - name: Copy postfix.cf
       ansible.builtin.copy:
-        src: files/main.cf
+        src: files/postfix.cf
         dest: /etc/postfix/main.cf
         mode: '0644'
         force: true
