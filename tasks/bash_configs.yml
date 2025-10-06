@@ -11,6 +11,13 @@
         deb: /tmp/fastfetch.deb
       become: true
 
+    - name: Create FastFetch config directory
+      ansible.builtin.file:
+        path: /home/michel/.config/fastfetch
+        state: directory
+        mode: '0755'
+      become: true
+
     - name: Copy FastFetch config file
       ansible.builtin.copy:
         src: files/fastfetch.jsonc
