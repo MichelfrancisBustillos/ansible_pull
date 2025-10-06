@@ -47,6 +47,7 @@
         tailscale_args: "--ssh"
       ansible.builtin.command: tailscale up --authkey={{ tailscale_authkey }} {{ tailscale_args }} # noqa: jinja[invalid]
       become: true
+      changed_when: false
 
   rescue:
     - name: Handle failure
