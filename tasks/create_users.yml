@@ -34,6 +34,28 @@
         - Restart SSHD
       become: true
 
+    - name: Disable SSH password authentication
+      ansible.builtin.lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: '^\#?\s?PasswordAuthentication.*$'
+        line: "PasswordAuthentication no"
+        state: present
+        backup: true
+      notify:
+        - Restart SSHD
+      become: true
+
+    - name: Enable Key-based authentication
+      ansible.builtin.lineinfile:
+        dest: /etc/ssh/sshd_config
+        regexp: '^\#?\s?PubkeyAuthentication.*$'
+        line: "PubkeyAuthentication yes"
+        state: present
+        backup: true
+      notify:
+        - Restart SSHD
+      become: true
+
     - name: Deploy SSH Key
       ansible.builtin.authorized_key:
         user: michel
