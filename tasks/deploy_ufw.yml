@@ -6,13 +6,18 @@
         state: present
       become: true
 
-    - name: Set default policies
+    - name: Set default Incoming Policy
       community.general.ufw:
         state: enabled
-        policy: "{{ item }}"
-      loop:
-        - 'deny incoming'
-        - 'allow outgoing'
+        direction: incoming
+        policy: deny
+      become: true
+
+    - name: Set default Outgoing Policy
+      community.general.ufw:
+        state: enabled
+        direction: outgoing
+        policy: allow
       become: true
 
     - name: Allow SSH connections
