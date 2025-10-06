@@ -48,25 +48,6 @@
         state: present
       become: true
 
-    - name: Download FastFetch
-      ansible.builtin.get_url:
-        url: https://github.com/fastfetch-cli/fastfetch/releases/download/2.53.0/fastfetch-linux-amd64-polyfilled.deb
-        dest: /tmp/fastfetch.deb
-      become: true
-
-    - name: Install FastFetch
-      ansible.builtin.apt:
-        deb: /tmp/fastfetch.deb
-      become: true
-
-    - name: Copy FastFetch config file
-      ansible.builtin.copy:
-        src: files/fastfetch.jsonc
-        dest: /home/michel/.config/fastfetch/config.jsonc
-        owner: michel
-        mode: '0644'
-      become: true
-
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
