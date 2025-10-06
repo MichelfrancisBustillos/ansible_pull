@@ -52,6 +52,7 @@
           Requires=mnt-Ark.mount
         dest: /etc/systemd/system/docker.service.d/override.conf
         mode: "0644"
+      when: "'/mnt/Ark' in ansible_mounts | map(attribute='mount') | list"
       notify: Reload systemd & Restart Docker
       become: true
 
