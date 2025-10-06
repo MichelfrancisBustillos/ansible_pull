@@ -23,7 +23,7 @@
         groups: sudo
       become: true
 
-    - name: Enable SSH as root (cuz f'in ProxMox)
+    - name: Enable SSH as root
       ansible.builtin.lineinfile:
         dest: /etc/ssh/sshd_config
         regexp: '^\#?\s?PermitRootLogin.*$'
@@ -32,6 +32,13 @@
         backup: true
       notify:
         - Restart SSHD
+      become: true
+
+    - Name: Deploy SSH Key
+      ansible.builtin.authorized_key:
+        user: michel
+        state: present
+        key: "{{ lookup('file', 'files/michel_id.pub') }}"
       become: true
 
   rescue:
