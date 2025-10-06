@@ -44,6 +44,11 @@
       ansible.builtin.package_facts:
         manager: auto
 
+    - name: Update Timezone to America/Chicago
+      ansible.builtin.command: timedatectl set-timezone America/Chicago
+      become: true
+      when: ansible_date_time.tz != "CDT" and ansible_date_time.tz != "CST"
+
   tasks:
     - name: Execute all tasks
       ansible.builtin.include_tasks: "{{ current_task }}"
