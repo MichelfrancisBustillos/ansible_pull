@@ -44,17 +44,6 @@
       ansible.builtin.package_facts:
         manager: auto
 
-    - name: Install community.general collection
-      ansible.builtin.command: ansible-galaxy collection install community.general
-      register: install_general
-      changed_when: '"Nothing to do." not in install_general.stdout'
-      become: true
-
-    - name: Set timezone
-      community.general.timezone:
-        name: America/Chicago
-      become: true
-
   tasks:
     - name: Execute all tasks
       ansible.builtin.include_tasks: "{{ current_task }}"
