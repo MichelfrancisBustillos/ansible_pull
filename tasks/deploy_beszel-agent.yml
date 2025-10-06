@@ -4,6 +4,7 @@
       community.general.docker_container:
         name: beszel_agent
         image: henrygd/beszel-agent:latest
+        recreate: true
         volumes:
           - "/var/run/docker.sock:/var/run/docker.sock"
         env:

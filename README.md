@@ -17,7 +17,7 @@ Installs a set of essential packages to ensure the system has the necessary tool
 - [micro](https://micro-editor.github.io/): A modern and intuitive terminal-based text editor.
 - [cron](https://wiki.debian.org/cron): A time-based job scheduler.
 - [sudo](https://www.sudo.ws/): Allows a permitted user to execute a command as the superuser or another user.
-- [neofetch](https://github.com/dylanaraps/neofetch): A command-line system information tool.
+- [fastfetch](https://github.com/fastfetch-cli/fastfetch): A fast and aesthetic system information tool.
 - [unattended-upgrades](https://wiki.debian.org/UnattendedUpgrades): Automatically installs security upgrades.
 - [pipx](https://pipx.pypa.io/stable/): Installs and runs Python applications in isolated environments.
 - [glances](https://github.com/nicolargo/glances): A cross-platform monitoring tool.
@@ -31,9 +31,13 @@ Creates a user named `michel` with a predefined password to ensure a consistent 
 
 Copies `.bashrc` and `.bash_aliases` files to the localhost to set up a customized terminal environment with useful aliases and configurations.
 
-### Onboard Host to [NetData](https://www.netdata.cloud/)
+### Install and Configure [Tmux](https://github.com/tmux/tmux)
 
-Installs and configures NetData for real-time system monitoring, providing insights into system performance and health.
+Installs Tmux, a terminal multiplexer, and configures it with a custom configuration file and plugins.
+
+### Install and Configure Docker with Docker Compose
+
+Installs Docker and Docker Compose, allowing for easy container management and orchestration.
 
 ### Set up Unattended Upgrades
 
