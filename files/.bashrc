@@ -94,8 +94,11 @@ PS1='\[\e[38;5;35m\]\u\[\e[0m\]@\[\e[38;5;35m\]\H\[\e[0m\]:\[\e[38;5;27m\]\w\n\[
 clear
 fastfetch
 
-if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-  exec tmux
+if [[ "$TERM_PROGRAM" != "vscode" ]]; then
+    # Attach or create a tmux session if tmux is installed
+    if command -v tmux &>/dev/null && [ -z "$TMUX" ] && ! tmux ls 2>/dev/null | grep -q "attached"; then
+        tmux attach-session -t default || tmux new-session -s default
+    fi
 fi
 
 if [ -n "$PS1" ]

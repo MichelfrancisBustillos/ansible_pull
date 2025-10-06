@@ -44,6 +44,11 @@
       ansible.builtin.package_facts:
         manager: auto
 
+    - name: Set timezone
+      community.general.timezone:
+        name: United_States/Chicago
+      become: true
+
   tasks:
     - name: Execute all tasks
       ansible.builtin.include_tasks: "{{ current_task }}"
