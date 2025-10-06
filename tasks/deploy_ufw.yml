@@ -25,7 +25,7 @@
         rule: allow
         port: 22
         proto: tcp
-        source: '{{ item }}'
+        src: '{{ item }}'
       loop:
         - 192.168.99.0/24
         - 192.168.1.0/24
