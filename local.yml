@@ -46,7 +46,7 @@
 
     - name: Set timezone
       community.general.timezone:
-        name: United_States/Chicago
+        name: America/Chicago
       become: true
 
   tasks:
