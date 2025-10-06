@@ -59,6 +59,14 @@
         deb: /tmp/fastfetch.deb
       become: true
 
+    - name: Copy FastFetch config file
+      ansible.builtin.copy:
+        src: files/fastfetch.conf
+        dest: /home/michel/.config/fastfetch/config.conf
+        owner: michel
+        mode: '0644'
+      become: true
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
