@@ -1,0 +1,33 @@
+- name: Deploy UFW
+  block:
+    - name: Ensure UFW is installed
+      ansible.builtin.apt:
+        name: ufw
+        state: present
+      become: true
+
+    - name: Set default policies
+      community.general.ufw:
+        state: enabled
+        policy: "{{ item.policy }}"
+      loop:
+        - { policy: 'deny incoming' }
+        - { policy: 'allow outgoing' }
+      become: true
+
+    - name: Allow SSH connections
+      community.general.ufw:
+        rule: allow
+        port: 22
+        proto: tcp
+        source: '{{ item }}'
+      loop:
+        - 192.168.99.0/24
+        - 192.168.1.0/24
+      become: true
+
+    - name: Allow Ping
+      community.general.ufw:
+        rule: allow
+        proto: icmp
+      become: true

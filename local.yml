@@ -5,7 +5,7 @@
 
   vars:
     task_list:
-      - tasks/deploy_iptables.yml
+      - tasks/deploy_ufw.yml
     failure_counter: 0
     pushover_token: !vault |
           $ANSIBLE_VAULT;1.1;AES256
