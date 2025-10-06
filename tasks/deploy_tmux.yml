@@ -1,0 +1,54 @@
+- name: Deploy TMUX
+  block:
+    - name: Install TMUX
+      ansible.builtin.package:
+        name: tmux
+        state: present
+      become: true
+
+    - name: Ensure TMUX config directory exists
+      ansible.builtin.file:
+        path: /home/michel/.config/tmux
+        state: directory
+        owner: michel
+        mode: '0755'
+      become: true
+
+    - name: Copy TMUX config file
+      ansible.builtin.copy:
+        src: files/tmux.conf
+        dest: /home/michel/.config/tmux/tmux.conf
+        owner: michel
+        mode: '0644'
+      become: true
+
+    - name: Ensure TMUX plugin manager directory exists
+      ansible.builtin.file:
+        path: /home/michel/.config/tmux/plugins
+        state: directory
+        owner: michel
+        mode: '0755'
+      become: true
+
+    - name: Clone TMUX plugin manager repository
+      ansible.builtin.git:
+        repo: https://github.com/tmux-plugins/tpm.git
+        dest: /home/michel/.config/tmux/plugins/tpm
+        version: master
+        update: yes
+        force: yes
+        owner: michel
+      become: true
+
+    - name: Install TMUX plugins
+      ansible.builtin.command:
+        cmd: /home/michel/.config/tmux/plugins/tpm/scripts/install_plugins.sh
+      become: true
+
+  rescue:
+  - name: Handle failure
+    ansible.builtin.debug:
+      msg: "An error occurred during TMUX deployment."
+  - name: Increment failure counter
+    ansible.builtin.set_fact:
+      failure_counter: "{{ failure_counter | default(0) | int + 1 }}"
