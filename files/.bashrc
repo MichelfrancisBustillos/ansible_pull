@@ -8,13 +8,17 @@ case $- in
       *) return;;
 esac
 export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass.txt
-export MANPAGER="sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08/, \"\", \$0); print }'\'' | batcat -p -lman'"
+# Set MANPAGER if batcat is available
+if command -v batcat &>/dev/null; then
+    export MANPAGER="sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08/, \"\", \$0); print }'\'' | batcat -p -lman'"
+fi
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
-shopt -s histappend autocd cdspell dirspell cdable_vars
+# Note: 'dirspell' is not available in all bash versions
+shopt -s histappend autocd cdspell cdable_vars
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000
@@ -49,6 +53,7 @@ esac
 # should be on the output of commands, not on the prompt
 #force_color_prompt=yes
 
+# Prompt logic: set only once, with color if possible
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
         # We have color support; assume it's compliant with Ecma-48
@@ -61,7 +66,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='\[\e[38;5;35m\]\u\[\e[0m\]@\[\e[38;5;35m\]\H\[\e[0m\]:\[\e[38;5;27m\]\w\n\[\e[0m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -91,14 +96,18 @@ if ! shopt -oq posix; then
   fi
 fi
 
-PS1='\[\e[38;5;35m\]\u\[\e[0m\]@\[\e[38;5;35m\]\H\[\e[0m\]:\[\e[38;5;27m\]\w\n\[\e[0m\]\$ '
-clear
-fastfetch
+# Run clear and fastfetch if available
+if command -v clear &>/dev/null; then clear; fi
+if command -v fastfetch &>/dev/null; then fastfetch; fi
 
 if [[ "$TERM_PROGRAM" != "vscode" ]]; then
     # Attach or create a tmux session if tmux is installed
-    if command -v tmux &>/dev/null && [ -z "$TMUX" ] && ! tmux ls 2>/dev/null | grep -q "attached"; then
-        tmux attach-session -t default || tmux new-session -s default
+    if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
+        if ! tmux has-session -t default 2>/dev/null; then
+            tmux new-session -s default
+        else
+            tmux attach-session -t default
+        fi
     fi
 fi
 
