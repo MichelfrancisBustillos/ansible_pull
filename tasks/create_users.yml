@@ -34,7 +34,7 @@
         - Restart SSHD
       become: true
 
-    - Name: Deploy SSH Key
+    - name: Deploy SSH Key
       ansible.builtin.authorized_key:
         user: michel
         state: present
