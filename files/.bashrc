@@ -8,6 +8,7 @@ case $- in
       *) return;;
 esac
 export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass.txt
+export MANPAGER="sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08/, \"\", \$0); print }'\'' | batcat -p -lman'"
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth

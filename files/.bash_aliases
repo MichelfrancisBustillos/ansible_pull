@@ -5,7 +5,6 @@ alias deltree="rm -r"
 alias rmdir="rm -r"
 alias rd="rm -r"
 alias rename="mv"
-alias cd..="cd .."
 alias chdir="pwd"
 alias cmd="bash"
 alias edit="nano -m -u -c -W --tabsize=4 --fill=100 --autoindent"
@@ -48,21 +47,30 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # Quality of Life Flags
 alias cp="cp -i"
+alias rsync="rsync --recursive --stats --human-readable --progress"
 alias grep="grep --color=auto"
 alias ls="ls --color=auto -lahF"
 alias mv="mv -i"
-alias rm="rm -i"
+alias rm="rm -I"
 alias please="sudo !!"
 alias wget="wget -c"
 alias search='set -f;search';search() { find . ${2:+-name "$2"} -type f -print0 | xargs -0 grep --color=auto "$1"; }
 alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias python='python3'
 alias pip='pip3'
-alias loadbash='source ~/.bashrc'
+alias rcreload='source ~/.bashrc'
 lc() { cd "$@" && ls; }
 alias cd='lc'
 alias ansiblepull='sudo ansible-pull -U https://github.com/MichelfrancisBustillos/ansible_pull.git --vault-password-file /home/michel/.vault_pass.txt'
-alias ip='ip -c'
+alias ip='ip -color=auto -human-readable -pretty'
+alias ports='sudo lsof -i -P -n | grep LISTEN'
+
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ~='cd ~'
 
 #Tail all logs in /var/log
 alias logs="find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f"
@@ -70,4 +78,9 @@ alias logs="find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1
 alias nano='micro'
 alias cat='batcat --paging=never'
 alias glances='sudo /root/.local/bin/glances'
-alias find='fdfind'
+alias find='fdfind -X batcat'
+
+alias bathelp='bat --plain --language=help'
+help() {
+    "$@" --help 2>&1 | bathelp
+}
