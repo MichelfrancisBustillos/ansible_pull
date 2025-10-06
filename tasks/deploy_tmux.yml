@@ -36,13 +36,11 @@
         dest: /home/michel/.config/tmux/plugins/tpm
         version: master
         update: yes
-        force: yes
-        owner: michel
       become: true
 
     - name: Install TMUX plugins
       ansible.builtin.command:
-        cmd: /home/michel/.config/tmux/plugins/tpm/scripts/install_plugins.sh
+        cmd: /home/michel/.config/tmux/plugins/tpm/tpm/scripts/install_plugins.sh
       become: true
 
   rescue:
