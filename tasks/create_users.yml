@@ -38,7 +38,7 @@
       ansible.builtin.authorized_key:
         user: michel
         state: present
-        key: "{{ lookup('file', 'files/michel_id.pub') }}"
+        key: "{{ lookup('file', 'files/id_rsa.pub') }}"
       become: true
 
   rescue:
