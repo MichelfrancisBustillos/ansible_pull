@@ -35,7 +35,7 @@
         repo: https://github.com/tmux-plugins/tpm.git
         dest: /home/michel/.config/tmux/plugins/tpm
         version: master
-        update: yes
+        update: true
       become: true
 
     - name: Install TMUX plugins
@@ -48,9 +48,9 @@
         TMUX_PLUGIN_MANAGER_PATH: /home/michel/.config/tmux/plugins
 
   rescue:
-  - name: Handle failure
-    ansible.builtin.debug:
-      msg: "An error occurred during TMUX deployment."
-  - name: Increment failure counter
-    ansible.builtin.set_fact:
-      failure_counter: "{{ failure_counter | default(0) | int + 1 }}"
+    - name: Handle failure
+      ansible.builtin.debug:
+        msg: "An error occurred during TMUX deployment."
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"

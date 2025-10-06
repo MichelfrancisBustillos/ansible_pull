@@ -37,7 +37,7 @@
         state: present
         update_cache: true
       become: true
-  
+
     - name: Create systemd override directory
       ansible.builtin.file:
         path: /etc/systemd/system/docker.service.d
