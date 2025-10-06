@@ -30,9 +30,3 @@
         - 192.168.99.0/24
         - 192.168.1.0/24
       become: true
-
-    - name: Allow Ping
-      community.general.ufw:
-        rule: allow
-        proto: icmp
-      become: true
