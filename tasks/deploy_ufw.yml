@@ -9,10 +9,10 @@
     - name: Set default policies
       community.general.ufw:
         state: enabled
-        policy: "{{ item.policy }}"
+        policy: "{{ item }}"
       loop:
-        - { policy: 'deny incoming' }
-        - { policy: 'allow outgoing' }
+        - 'deny incoming'
+        - 'allow outgoing'
       become: true
 
     - name: Allow SSH connections
