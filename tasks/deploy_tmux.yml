@@ -38,12 +38,17 @@
         update: yes
       become: true
 
-    - name: Install TMUX plugins
-      ansible.builtin.command:
-        cmd: /home/michel/.config/tmux/plugins/tpm/scripts/install_plugins.sh
+    - name: Install Tmux plugins
+      ansible.builtin.shell: |
+        tmux start-server
+        tmux new-session -d
+        sleep 1 # Give tmux a moment to start
+        tmux send-keys -t 0 "run '/home/michel/.config/tmux/plugins/tpm/tpm'" C-m
+        tmux send-keys -t 0 "prefix + I" # Simulate pressing prefix + I
+        tmux kill-session -t 0
       args:
-        chdir: /home/michel/.config/tmux/plugins/tpm/scripts
-      become: true
+        executable: /bin/bash
+      changed_when: false # This command always indicates a change for simplicity
 
   rescue:
   - name: Handle failure
