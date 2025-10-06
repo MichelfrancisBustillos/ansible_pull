@@ -41,7 +41,7 @@
     - name: Install TMUX plugins
       ansible.builtin.command:
         cmd: /home/michel/.config/tmux/plugins/tpm/scripts/install_plugins.sh
-        register: tmux_plugin_install
+      register: tmux_plugin_install
       failed_when: tmux_plugin_install.rc != 0
       changed_when: "'success' in tmux_plugin_install.stdout"
       environment:
