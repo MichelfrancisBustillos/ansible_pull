@@ -45,7 +45,7 @@ extract () {
 # Quality of Life Flags
 alias cp="cp -i"
 alias grep="grep --color=auto"
-alias ls="ls --color=auto -F"
+alias ls="ls --color=auto -lahF"
 alias mv="mv -i"
 alias rm="rm -i"
 alias please="sudo !!"
@@ -58,6 +58,7 @@ alias loadbash='source ~/.bashrc'
 lc() { cd "$@" && ls; }
 alias cd='lc'
 alias ansiblepull='sudo ansible-pull -U https://github.com/MichelfrancisBustillos/ansible_pull.git --vault-password-file /home/michel/.vault_pass.txt'
+alias ip='ip -c'
 
 #Tail all logs in /var/log
 alias logs="find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f"
@@ -65,3 +66,4 @@ alias logs="find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1
 alias nano='micro'
 alias cat='batcat --paging=never'
 alias glances='sudo /root/.local/bin/glances'
+alias find='fdfind'
