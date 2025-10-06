@@ -38,10 +38,6 @@
         update: yes
       become: true
 
-    - name: Install TMUX plugins
-      ansible.builtin.command:
-        cmd: /home/michel/.config/tmux/plugins/tpm/scripts/install_plugins.sh
-
   rescue:
   - name: Handle failure
     ansible.builtin.debug:
