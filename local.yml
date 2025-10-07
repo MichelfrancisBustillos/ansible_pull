@@ -37,6 +37,10 @@
 
 
   pre_tasks:
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+        manager: auto
+
     - name: Update repos
       ansible.builtin.apt:
         update_cache: true
