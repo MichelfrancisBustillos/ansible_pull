@@ -1,6 +1,7 @@
 - name: Master Playbook
   hosts: localhost
   connection: localhost
+  gather_facts: true
   become: true
 
   vars:
@@ -41,8 +42,8 @@
         update_cache: true
       changed_when: false
 
-    - name: Gather the package facts
-      ansible.builtin.package_facts:
+    - name: Gather systemd service facts
+      ansible.builtin.service_facts:
         manager: auto
 
     - name: Update Timezone to America/Chicago

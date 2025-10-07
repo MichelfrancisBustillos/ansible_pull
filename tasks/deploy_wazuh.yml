@@ -33,6 +33,7 @@
         state: started
         enabled: true
         daemon_reload: true
+  when: "'wazuh-manager.service' not in services"
 
   rescue:
     - name: Handle failure
