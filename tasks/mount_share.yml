@@ -13,7 +13,6 @@
         port: 445
         timeout: 5
         state: started
-      tags: development
 
     - name: Create Mount Point - TheArk
       ansible.builtin.file:
@@ -39,7 +38,6 @@
         state: mounted
       when: password is defined
       become: true
-      tags: development
 
   rescue:
     - name: Handle task failure
