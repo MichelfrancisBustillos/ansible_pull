@@ -58,6 +58,7 @@
         loop_var: current_task
       register: task_result
       ignore_errors: true
+      tags: development
 
     - name: Send Pushover notification
       ansible.builtin.uri:
