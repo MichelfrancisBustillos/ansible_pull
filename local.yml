@@ -42,10 +42,6 @@
         update_cache: true
       changed_when: false
 
-    - name: Gather systemd service facts
-      ansible.builtin.service_facts:
-        manager: auto
-
     - name: Update Timezone to America/Chicago
       ansible.builtin.command: timedatectl set-timezone America/Chicago
       become: true
