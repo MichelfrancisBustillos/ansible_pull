@@ -48,6 +48,12 @@
         state: present
       become: true
 
+    - name: Install ripgrep
+      ansible.builtin.apt:
+        name: ripgrep
+        state: present
+      become: true
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
