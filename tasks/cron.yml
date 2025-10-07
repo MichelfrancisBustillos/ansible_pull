@@ -14,7 +14,7 @@
         minute: "0"
         hour: "*/6"
         job: "/usr/bin/ansible-pull -o -U https://github.com/MichelfrancisBustillos/ansible_pull.git \
-              --vault-password-file /home/michel/.vault_pass.txt > /dev/null"
+              --vault-password-file /home/michel/.vault_pass.txt -C main> /dev/null"
       become: true
 
     - name: Copy script file
