@@ -1,0 +1,25 @@
+- name: Deploy Wazuh Agent
+  block:
+    - name: Download Wazuh Agent package
+      ansible.builtin.get_url:
+        url: "https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.13.1-1_amd64.deb"
+        dest: "/tmp/wazuh-agent_4.13.1-1_amd64.deb"
+
+    - name: Install Wazuh Agent
+      ansible.builtin.shell:
+        cmd: "WAZUH_MANAGER='wazuh.katoteros.org' dpkg -i /tmp/wazuh-agent_4.13.1-1_amd64.deb"
+
+    - name: Start and enable Wazuh Agent service
+      systemd:
+        name: wazuh-agent
+        state: started
+        enabled: true
+        daemon_reload: true
+
+  rescue:
+    - name: Handle failure
+      ansible.builtin.debug:
+        msg: "An error occurred during Wazuh Agent deployment."
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"
