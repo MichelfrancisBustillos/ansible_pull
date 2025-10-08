@@ -15,8 +15,6 @@
   - pam_unix includes use_authtok
   - password expiration?????
   - inactive password lock configured
-- configure local login warning banner
-- configure remote login warning banner
 - configure systemd-timesyncd to use timeserver (time.nist.gov)
 - journald
   - log file rotation

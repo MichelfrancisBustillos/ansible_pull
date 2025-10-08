@@ -54,6 +54,24 @@
         mode: '0644'
       become: true
 
+    - name: Overwrite local banner
+      ansible.builtin.copy:
+        content: ""
+        dest: /etc/issue
+        owner: root
+        group: root
+        mode: '0644'
+      become: true
+
+    - name: Overwrite remote banner
+      ansible.builtin.copy:
+        content: ""
+        dest: /etc/issue.net
+        owner: root
+        group: root
+        mode: '0644'
+      become: true
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
