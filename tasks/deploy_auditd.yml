@@ -17,6 +17,7 @@
         path: "{{ item }}"
         owner: root
         group: root
+        mode: '0600'
       loop:
         - /sbin/auditctl
         - /sbin/aureport
