@@ -1,0 +1,40 @@
+- name: Deploy AuditD
+  block:
+    - name: Install auditd package
+      ansible.builtin.apt:
+        name: auditd
+        state: present
+        update_cache: yes
+
+    - name: Install audispd-plugins package
+      ansible.builtin.apt:
+        name: audispd-plugins
+        state: present
+        update_cache: yes
+
+    - name: Ensure auditd owner and group is root
+      ansible.builtin.file:
+        path: {{ item }}
+        owner: root
+        group: root
+        recurse: yes
+      loop:
+        - /sbin/auditctl
+        - /sbin/aureport
+        - /sbin/ausearch
+        - /sbin/autrace
+        - /sbin/auditd
+        - /sbin/augenrules
+    - name: Ensure auditd is started and enabled
+      ansible.builtin.service:
+        name: auditd
+        state: started
+        enabled: true
+
+  rescue:
+    - name: Handle task failure
+      ansible.builtin.debug:
+        msg: "A task in the AuditD deployment block failed"
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"
