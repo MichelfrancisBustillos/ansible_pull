@@ -1,0 +1,25 @@
+- name: Configure JournalD
+  block:
+    - name: Overwrite JournalD config file
+      copy:
+        src: files/journald.conf
+        dest: /etc/systemd/journald.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Restart systemd-journald
+      become: true
+
+  handlers:
+    - name: Restart systemd-journald
+      ansible.builtin.service:
+        name: systemd-journald
+        state: restarted
+
+  rescue:
+    - name: Handle task failure
+      ansible.builtin.debug:
+        msg: "A task in the Journald configuration block failed"
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"
