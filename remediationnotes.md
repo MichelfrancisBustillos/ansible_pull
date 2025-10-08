@@ -1,10 +1,6 @@
 # Remediation Notes
 
-- libpam-pwquality installed
-  - pam_unix enabled
-  - pam_faillock enabled
-  - pam_pwquality enabled
-  - pam_pwhistory enabled
+- PAM
   - password failed attempts lockout
   - password unlock time
   - passowrd failed attempts lockout includes root
