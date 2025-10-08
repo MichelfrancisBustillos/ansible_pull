@@ -15,8 +15,5 @@
   - pam_unix includes use_authtok
   - password expiration?????
   - inactive password lock configured
-- journald
-  - log file rotation
-  - compress
 - auditd
   - install, enable
