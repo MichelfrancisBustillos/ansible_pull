@@ -6,17 +6,17 @@
         state: present
       become: true
 
-    - name: Set default Incoming Policy
+    - name: Set default in Policy
       community.general.ufw:
         state: enabled
-        direction: incoming
+        direction: in
         policy: deny
       become: true
 
-    - name: Set default Outgoing Policy
+    - name: Set default out Policy
       community.general.ufw:
         state: enabled
-        direction: outgoing
+        direction: out
         policy: allow
       become: true
 
@@ -41,28 +41,28 @@
     - name: Allow in on loopback
       community.general.ufw:
         rule: allow
-        direction: incoming
+        direction: in
         interface: lo
       become: true
 
     - name: Allow out on loopback
       community.general.ufw:
         rule: allow
-        direction: outgoing
+        direction: out
         interface: lo
       become: true
 
     - name: Allow established connections
       community.general.ufw:
         rule: allow
-        direction: incoming
+        direction: in
         state: established
       become: true
 
     - name: Deny in from localhost
       community.general.ufw:
         rule: deny
-        direction: incoming
+        direction: in
         src: '{{ item }}'
       loop:
         - 127.0.0.0/8
