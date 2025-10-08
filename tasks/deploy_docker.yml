@@ -90,6 +90,7 @@
           TZ: "America/Chicago"
         state: started
       become: true
+      changed_when: false  # Prevents unnecessary changes on each run
 
   rescue:
     - name: Handle task failure

@@ -14,6 +14,7 @@
         network_mode: host
         restart_policy: always
         state: started
+      changed_when: false  # Prevents unnecessary changes on each run
 
   rescue:
     - name: Handle task failure
