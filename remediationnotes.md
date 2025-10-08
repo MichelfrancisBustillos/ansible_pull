@@ -15,5 +15,4 @@
   - pam_unix includes use_authtok
   - password expiration?????
   - inactive password lock configured
-- auditd
-  - install, enable
+- fail2ban
