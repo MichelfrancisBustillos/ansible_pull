@@ -52,13 +52,6 @@
         interface: lo
       become: true
 
-    - name: Allow established connections
-      community.general.ufw:
-        rule: allow
-        direction: in
-        state: established
-      become: true
-
     - name: Deny in from localhost
       community.general.ufw:
         rule: deny
