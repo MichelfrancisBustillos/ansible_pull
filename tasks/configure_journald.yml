@@ -10,12 +10,6 @@
       notify: Restart systemd-journald
       become: true
 
-  handlers:
-    - name: Restart systemd-journald
-      ansible.builtin.service:
-        name: systemd-journald
-        state: restarted
-
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
