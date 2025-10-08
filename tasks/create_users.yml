@@ -30,7 +30,7 @@
         owner: root
         group: root
         mode: '0600'
-      notify: Restart sshd
+      notify: Restart SSHD
       become: true
 
     - name: Deploy SSH Key
