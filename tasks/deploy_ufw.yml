@@ -1,0 +1,40 @@
+- name: Deploy UFW
+  block:
+    - name: Ensure UFW is installed
+      ansible.builtin.apt:
+        name: ufw
+        state: present
+      become: true
+
+    - name: Set default Incoming Policy
+      community.general.ufw:
+        state: enabled
+        direction: incoming
+        policy: deny
+      become: true
+
+    - name: Set default Outgoing Policy
+      community.general.ufw:
+        state: enabled
+        direction: outgoing
+        policy: allow
+      become: true
+
+    - name: Allow SSH connections
+      community.general.ufw:
+        rule: allow
+        port: 22
+        proto: tcp
+        src: '{{ item }}'
+      loop:
+        - 192.168.99.0/24
+        - 192.168.1.0/24
+      become: true
+
+  rescue:
+    - name: Handle failure
+      ansible.builtin.debug:
+        msg: "An error occurred during UFW deployment."
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"

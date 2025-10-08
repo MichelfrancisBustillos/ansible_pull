@@ -19,6 +19,7 @@
       - tasks/deploy_tailscale.yml
       - tasks/deploy_tmux.yml
       - tasks/deploy_wazuh.yml
+      - tasks/deploy_ufw.yml
     failure_counter: 0
     pushover_token: !vault |
           $ANSIBLE_VAULT;1.1;AES256
