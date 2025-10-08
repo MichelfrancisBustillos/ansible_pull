@@ -38,6 +38,17 @@
         - 192.168.1.0/24
       become: true
 
+    - name: Allow Glances
+      community.general.ufw:
+        rule: allow
+        port: 61208
+        proto: tcp
+        src: '{{ item }}'
+      loop:
+        - 192.168.99.0/24
+        - 192.168.1.0/24
+      become: true
+
     - name: Allow in on loopback
       community.general.ufw:
         rule: allow
