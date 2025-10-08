@@ -15,7 +15,6 @@
   - pam_unix includes use_authtok
   - password expiration?????
   - inactive password lock configured
-- disable automatic error reporting
 - configure local login warning banner
 - configure remote login warning banner
 - remove gdm3 (if GUI not needed)

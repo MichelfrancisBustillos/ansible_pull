@@ -54,6 +54,20 @@
         state: present
       become: true
 
+    - name: Remove telnet
+      ansible.builtin.apt:
+        name: telnet
+        state: absent
+      become: true
+
+    - name: Remove ftp and tnftp
+      ansible.builtin.apt:
+        name:
+          - ftp
+          - tnftp
+        state: absent
+      become: true
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
