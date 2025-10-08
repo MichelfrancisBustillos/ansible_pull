@@ -17,9 +17,6 @@
   - inactive password lock configured
 - configure local login warning banner
 - configure remote login warning banner
-- remove gdm3 (if GUI not needed)
-- remove telnet
-- remove ftp and tnftp
 - configure systemd-timesyncd to use timeserver (time.nist.gov)
 - journald
   - log file rotation

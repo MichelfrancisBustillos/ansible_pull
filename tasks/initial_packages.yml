@@ -68,6 +68,12 @@
         state: absent
       become: true
 
+    - name: Remove gdm3 (if GUI not needed)
+      ansible.builtin.apt:
+        name: gdm3
+        state: absent
+      become: true
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
