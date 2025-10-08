@@ -72,6 +72,14 @@
         mode: '0644'
       become: true
 
+    - name: Set NTP Server
+      ansible.builtin.lineinfile:
+        path: /etc/systemd/timesyncd.conf
+        regexp: '^#?NTP='
+        line: 'NTP=time.nist.gov'
+        state: present
+      become: true
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
