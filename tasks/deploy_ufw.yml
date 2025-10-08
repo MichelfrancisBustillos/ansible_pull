@@ -20,6 +20,13 @@
         policy: allow
       become: true
 
+    - name: Set defualt Routed Policy
+      community.general.ufw:
+        state: enabled
+        direction: routed
+        policy: deny
+      become: true
+
     - name: Allow SSH connections
       community.general.ufw:
         rule: allow
@@ -30,6 +37,43 @@
         - 192.168.99.0/24
         - 192.168.1.0/24
       become: true
+
+    - name: Allow in on loopback
+      community.general.ufw:
+        rule: allow
+        direction: incoming
+        interface: lo
+      become: true
+
+    - name: Allow out on loopback
+      community.general.ufw:
+        rule: allow
+        direction: outgoing
+        interface: lo
+      become: true
+
+    - name: Allow established connections
+      community.general.ufw:
+        rule: allow
+        direction: incoming
+        state: established
+      become: true
+
+    - name: Deny in from localhost
+      community.general.ufw:
+        rule: deny
+        direction: incoming
+        src: '{{ item }}'
+      loop:
+        - 127.0.0.0/8
+        - ::1
+      become: true
+
+    - name: Enable UFW
+      community.general.ufw:
+        state: enabled
+        logging: on
+        
 
   rescue:
     - name: Handle failure
