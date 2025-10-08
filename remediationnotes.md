@@ -1,9 +1,6 @@
 # Remediation Notes
 
 - PAM
-  - password failed attempts lockout
-  - password unlock time
-  - passowrd failed attempts lockout includes root
   - passowrd history remember configured
   - password history enfosed for root user
   - pam_pwhistory includes use_authtok
@@ -12,3 +9,4 @@
   - password expiration?????
   - inactive password lock configured
 - fail2ban
+- rkhunter
