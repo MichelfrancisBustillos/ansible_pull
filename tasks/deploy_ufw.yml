@@ -9,14 +9,14 @@
     - name: Set default in Policy
       community.general.ufw:
         state: enabled
-        direction: in
+        direction: incoming
         policy: deny
       become: true
 
     - name: Set default out Policy
       community.general.ufw:
         state: enabled
-        direction: out
+        direction: outgoing
         policy: allow
       become: true
 
