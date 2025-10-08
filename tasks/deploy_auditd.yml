@@ -17,7 +17,6 @@
         path: "{{ item }}"
         owner: root
         group: root
-        recurse: yes
       loop:
         - /sbin/auditctl
         - /sbin/aureport
