@@ -22,6 +22,7 @@
       - tasks/deploy_ufw.yml
       - tasks/configure_journald.yml
       - tasks/password_policy.yml
+      - tasks/deploy_fail2ban.yml
 
     failure_counter: 0
     pushover_token: !vault |

@@ -1,0 +1,21 @@
+- name: Deploy fail2ban
+  block:
+    - name: Install fail2ban
+      ansible.builtin.apt:
+        name: fail2ban
+        state: present
+        update_cache: yes
+
+    - name: Ensure fail2ban is running and enabled
+      ansible.builtin.service:
+        name: fail2ban
+        state: started
+        enabled: yes
+
+  rescue:
+    - name: Handle task failure
+      ansible.builtin.debug:
+        msg: "A task in the fail2ban deployment block failed"
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"
