@@ -1,6 +1,5 @@
 # Remediation Notes
 
-- Enable sudo log file
 - libpam-pwquality installed
   - pam_unix enabled
   - pam_faillock enabled

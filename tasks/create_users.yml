@@ -40,6 +40,15 @@
         key: "{{ lookup('file', 'files/id_rsa.pub') }}"
       become: true
 
+    - name: Configure sudoers log file
+      ansible.builtin.copy:
+        dest: /etc/sudoers.d/010_logfile
+        content: 'Defaults logfile="/var/log/sudo.log"'
+        owner: root
+        group: root
+        mode: '0440'
+      become: true
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
