@@ -21,7 +21,7 @@
       - tasks/deploy_wazuh.yml
       - tasks/deploy_ufw.yml
       - tasks/configure_journald.yml
-      - tasks/deploy_auditd.yml
+      # - tasks/deploy_auditd.yml
     failure_counter: 0
     pushover_token: !vault |
           $ANSIBLE_VAULT;1.1;AES256

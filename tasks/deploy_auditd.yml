@@ -25,6 +25,7 @@
         - /sbin/autrace
         - /sbin/auditd
         - /sbin/augenrules
+
     - name: Ensure auditd is started and enabled
       ansible.builtin.service:
         name: auditd
