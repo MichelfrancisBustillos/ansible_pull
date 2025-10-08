@@ -14,7 +14,7 @@
 
     - name: Ensure auditd owner and group is root
       ansible.builtin.file:
-        path: {{ item }}
+        path: "{{ item }}"
         owner: root
         group: root
         recurse: yes
