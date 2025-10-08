@@ -64,6 +64,7 @@ alias cd='lc'
 alias ansiblepull='sudo ansible-pull -U https://github.com/MichelfrancisBustillos/ansible_pull.git --vault-password-file /home/michel/.vault_pass.txt'
 alias ip='ip -color=auto -human-readable -pretty'
 alias ports='sudo lsof -i -P -n | grep LISTEN'
+alias grep='rg --smart-case --multiline --follow'
 
 alias cd..='cd ..'
 alias ..='cd ..'

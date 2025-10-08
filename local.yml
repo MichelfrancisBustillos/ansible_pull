@@ -1,6 +1,7 @@
 - name: Master Playbook
   hosts: localhost
   connection: localhost
+  gather_facts: true
   become: true
 
   vars:
@@ -36,14 +37,13 @@
 
 
   pre_tasks:
+    - name: Gather service facts
+      ansible.builtin.service_facts:
+
     - name: Update repos
       ansible.builtin.apt:
         update_cache: true
       changed_when: false
-
-    - name: Gather the package facts
-      ansible.builtin.package_facts:
-        manager: auto
 
     - name: Update Timezone to America/Chicago
       ansible.builtin.command: timedatectl set-timezone America/Chicago

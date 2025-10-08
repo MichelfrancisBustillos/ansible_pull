@@ -7,6 +7,13 @@
         update_cache: true
       become: true
 
+    - name: Check if Ark is Reachable
+      ansible.builtin.wait_for:
+        host: ark.katoteros.org
+        port: 445
+        timeout: 5
+        state: started
+
     - name: Create Mount Point - TheArk
       ansible.builtin.file:
         path: /mnt/Ark
