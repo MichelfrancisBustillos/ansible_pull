@@ -1,0 +1,19 @@
+# /etc/ssh/sshd_config
+Include /etc/ssh/sshd_config.d/*.conf
+PermitRootLogin yes
+PubkeyAuthentication yes
+KbdInteractiveAuthentication no
+PasswordAuthentication no
+UsePAM yes
+X11Forwarding yes
+PrintMotd no
+AcceptEnv LANG LC_*
+Subsystem sftp /usr/lib/openssh/sftp-server
+AllowUsers michel ansible root
+ClientAliveInterval 15
+ClientAliveCountMax 3
+Banner /etc/issue.net
+LoginGraceTime 60
+MaxAuthTries 4
+MaxStartups 10:30:60
+PermitEmptyPasswords no

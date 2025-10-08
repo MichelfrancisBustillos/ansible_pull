@@ -23,37 +23,14 @@
         groups: sudo
       become: true
 
-    - name: Enable SSH as root
-      ansible.builtin.lineinfile:
+    - name: Copy SSH config
+      ansible.builtin.copy:
+        src: files/sshd_config
         dest: /etc/ssh/sshd_config
-        regexp: '^\#?\s?PermitRootLogin.*$'
-        line: "PermitRootLogin yes"
-        state: present
-        backup: true
-      notify:
-        - Restart SSHD
-      become: true
-
-    - name: Disable SSH password authentication
-      ansible.builtin.lineinfile:
-        dest: /etc/ssh/sshd_config
-        regexp: '^\#?\s?PasswordAuthentication.*$'
-        line: "PasswordAuthentication no"
-        state: present
-        backup: true
-      notify:
-        - Restart SSHD
-      become: true
-
-    - name: Enable Key-based authentication
-      ansible.builtin.lineinfile:
-        dest: /etc/ssh/sshd_config
-        regexp: '^\#?\s?PubkeyAuthentication.*$'
-        line: "PubkeyAuthentication yes"
-        state: present
-        backup: true
-      notify:
-        - Restart SSHD
+        owner: root
+        group: root
+        mode: '0600'
+      notify: Restart sshd
       become: true
 
     - name: Deploy SSH Key

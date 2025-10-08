@@ -1,0 +1,38 @@
+# Remediation Notes
+
+- Enable sudo log file
+- libpam-pwquality installed
+  - pam_unix enabled
+  - pam_faillock enabled
+  - pam_pwquality enabled
+  - pam_pwhistory enabled
+  - password failed attempts lockout
+  - password unlock time
+  - passowrd failed attempts lockout includes root
+  - passowrd history remember configured
+  - password history enfosed for root user
+  - pam_pwhistory includes use_authtok
+  - pam_unix does not include nullok
+  - pam_unix includes use_authtok
+  - password expiration?????
+  - inactive password lock configured
+- disable automatic error reporting
+- configure local login warning banner
+- configure remote login warning banner
+- remove gdm3 (if GUI not needed)
+- remove telnet
+- remove ftp and tnftp
+- configure systemd-timesyncd to use timeserver (time.nist.gov)
+- enable UFW
+- ufw allow in on lo
+  - ufw allow out on lo
+  - ufw deny in from 127.0.0.0/8
+  - ufw deny in from ::1
+  - ufw default deny incoming
+  - ufw default allow outgoing
+  - ufw default deny routed
+- journald
+  - log file rotation
+  - compress
+- auditd
+  - install, enable
