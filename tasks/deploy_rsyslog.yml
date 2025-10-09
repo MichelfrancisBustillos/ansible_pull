@@ -29,7 +29,7 @@
             port="514"
             template="RSYSLOG_SyslogProtocol23Format"
           )
-        become: true
+      become: true
 
     - name: Restart rsyslog to apply changes
       ansible.builtin.service:
