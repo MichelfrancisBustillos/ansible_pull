@@ -23,6 +23,7 @@
       - tasks/configure_journald.yml
 #      - tasks/password_policy.yml
       - tasks/deploy_fail2ban.yml
+      - tasks/deploy_rsyslog.yml
 
     failure_counter: 0
     pushover_token: !vault |

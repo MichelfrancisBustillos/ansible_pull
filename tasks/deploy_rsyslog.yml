@@ -1,0 +1,48 @@
+- name: Configure rsyslog
+  block:
+    - name: Ensure rsyslog is installed
+      ansible.builtin.apt:
+        name: rsyslog
+        state: present
+
+    - name: Configure rsyslog to log to a remote server
+      ansible.builtin.copy:
+        dest: /etc/rsyslog.d/greylog.conf
+        content: |
+          *.*  action(
+            Action.resumeInterval="10"
+            RebindInterval="10000"
+            Queue.Size="100000"
+            Queue.DiscardMark="97500"
+            Queue.HighWaterMark="80000"
+            Queue.Type="LinkedList"
+            Queue.FileName="rsyslogqueue"
+            Queue.CheckpointInterval="100"
+            Queue.MaxDiskSpace="2g"
+            Action.ResumeRetryCount="-1"
+            Queue.SaveOnShutdown="on"
+            Queue.TimeoutEnqueue="10"
+            Queue.DiscardSeverity="0"
+            type="omfwd"
+            target="greylog.katoteros.org"
+            protocol="tcp"
+            port="514"
+            template="RSYSLOG_SyslogProtocol23Format"
+          )
+        become: true
+
+    - name: Restart rsyslog to apply changes
+      ansible.builtin.service:
+        name: rsyslog
+        state: restarted
+        enabled: true
+        daemon_reload: true
+      become: true
+
+  rescue:
+    - name: Handle failure
+      ansible.builtin.debug:
+        msg: "An error occurred during rsyslog deployment."
+    - name: Increment failure counter
+      ansible.builtin.set_fact:
+        failure_counter: "{{ failure_counter | default(0) | int + 1 }}"
