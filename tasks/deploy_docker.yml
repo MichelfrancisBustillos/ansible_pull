@@ -65,7 +65,7 @@
             "log-opts": {
               "syslog-address": "tcp://greylog.katoteros.org:518",
               "syslog-format": "rfc5424",
-              "tag": "{{.ImageName}}/{{.Name}}/{{.ID}}"
+              "tag": "{{.ImageName}}||{{.Name}}||{{.ID}}"
             }
           }
           {% endraw %}
