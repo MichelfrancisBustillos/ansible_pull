@@ -64,7 +64,7 @@
             "log-driver": "syslog",
             "log-opts": {
               "syslog-address": "tcp://greylog.katoteros.org:518",
-              "syslog-format": "rfc5424"
+              "syslog-format": "rfc5424",
               "tag": "{{.ImageName}}/{{.Name}}/{{.ID}}"
             }
           }
