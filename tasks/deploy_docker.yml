@@ -58,7 +58,8 @@
 
     - name: Configure Docker Logging
       ansible.builtin.copy:
-        content: |
+        content: | 
+          {% raw %}
           {
             "log-driver": "syslog",
             "log-opts": {
@@ -67,6 +68,7 @@
               "tag": "{{.ImageName}}/{{.Name}}/{{.ID}}"
             }
           }
+          {% endraw %}
         dest: /etc/docker/daemon.json
         mode: "0644"
       notify: Reload systemd & Restart Docker
