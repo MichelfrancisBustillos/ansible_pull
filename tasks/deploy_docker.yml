@@ -56,24 +56,6 @@
       notify: Reload systemd & Restart Docker
       become: true
 
-    - name: Configure Docker Logging
-      ansible.builtin.copy:
-        content: | 
-          {% raw %}
-          {
-            "log-driver": "syslog",
-            "log-opts": {
-              "syslog-address": "tcp://greylog.katoteros.org:518",
-              "syslog-format": "rfc5424",
-              "tag": "{{.ImageName}}/{{.Name}}/{{.ID}}"
-            }
-          }
-          {% endraw %}
-        dest: /etc/docker/daemon.json
-        mode: "0644"
-      notify: Reload systemd & Restart Docker
-      become: true
-
     - name: Deploy Watchtower
       vars:
         pushover_token: !vault |
