@@ -49,6 +49,15 @@
         mode: '0440'
       become: true
 
+    - name: Configure passwordless sudo for michel
+      ansible.builtin.copy:
+        dest: /etc/sudoers.d/020_michel
+        content: 'michel ALL=(ALL) NOPASSWD: ALL'
+        owner: root
+        group: root
+        mode: '0440'
+      become: true
+
   rescue:
     - name: Handle task failure
       ansible.builtin.debug:
