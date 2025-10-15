@@ -25,7 +25,7 @@
 
     - name: Copy SSH config
       ansible.builtin.copy:
-        src: files/sshd_config
+        src: files/sshd.conf
         dest: /etc/ssh/sshd_config
         owner: root
         group: root
