@@ -112,7 +112,7 @@
 
     - name: Deploy Pulse Monitoring
       ansible.builtin.command:
-        cmd: curl -fsSL https://stats.katoteros.org/install-docker-agent.sh | bash -s -- --url https://stats.katoteros.org --token 315e03ee3a9f7672f1a88a630374af8faec82ff450c473f5830173edf3c58478
+        cmd: "curl -fsSL https://stats.katoteros.org/install-docker-agent.sh | bash -s -- --url https://stats.katoteros.org --token 315e03ee3a9f7672f1a88a630374af8faec82ff450c473f5830173edf3c58478"
       changed_when: false
       become: true
   
