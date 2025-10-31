@@ -20,7 +20,7 @@
         name: michel
         password: "{{ userpwd | string | password_hash('sha512', 'MnFBb7vfYNYt') }}" # noqa: jinja[invalid]
         shell: /bin/bash
-        groups: sudo
+        groups: sudo,docker
       become: true
 
     - name: Copy SSH config
