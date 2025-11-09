@@ -7,7 +7,7 @@
           - glances
       community.general.pipx:
         name: "{{ item }}"
-        state: present
+        state: latest
       with_items: "{{ pipx_packages }}"
       changed_when: false
 

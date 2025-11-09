@@ -20,12 +20,12 @@
         name: michel
         password: "{{ userpwd | string | password_hash('sha512', 'MnFBb7vfYNYt') }}" # noqa: jinja[invalid]
         shell: /bin/bash
-        groups: sudo
+        groups: sudo,docker
       become: true
 
     - name: Copy SSH config
       ansible.builtin.copy:
-        src: files/sshd_config
+        src: files/sshd.conf
         dest: /etc/ssh/sshd_config
         owner: root
         group: root
@@ -44,6 +44,15 @@
       ansible.builtin.copy:
         dest: /etc/sudoers.d/010_logfile
         content: 'Defaults logfile="/var/log/sudo.log"'
+        owner: root
+        group: root
+        mode: '0440'
+      become: true
+
+    - name: Configure passwordless sudo for michel
+      ansible.builtin.copy:
+        dest: /etc/sudoers.d/020_michel
+        content: 'michel ALL=(ALL) NOPASSWD: ALL'
         owner: root
         group: root
         mode: '0440'

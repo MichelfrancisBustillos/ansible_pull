@@ -65,6 +65,7 @@ alias ansiblepull='sudo ansible-pull -U https://github.com/MichelfrancisBustillo
 alias ip='ip -color=auto -human-readable -pretty'
 alias ports='sudo lsof -i -P -n | grep LISTEN'
 alias grep='rg --smart-case --multiline --follow'
+alias michel='echo "Hello, Michel!"'
 
 alias cd..='cd ..'
 alias ..='cd ..'
