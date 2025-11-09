@@ -4,7 +4,7 @@
       vars:
         pipx_packages:
           - py3nvml
-          - glances[all]
+          - glances
       community.general.pipx:
         name: "{{ item }}"
         state: present
@@ -16,7 +16,7 @@
         src: files/glances.service
         dest: /etc/systemd/system/glances.service
         force: true
-        mode: '0644'
+        mode: "0644"
 
     - name: Enable Glances service
       ansible.builtin.systemd:
