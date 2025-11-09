@@ -1,5 +1,10 @@
 - name: Deploy Glances
   block:
+    - name: Ensure pipx is in path
+      ansible.builtin.shell: |
+        pipx ensurepath
+      become: true
+
     - name: Install Pipx Components
       vars:
         pipx_packages:
@@ -10,6 +15,7 @@
         state: latest
       with_items: "{{ pipx_packages }}"
       changed_when: false
+      become: true
 
     - name: Copy service file
       ansible.builtin.copy:
