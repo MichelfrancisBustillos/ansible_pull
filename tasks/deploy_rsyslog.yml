@@ -38,6 +38,7 @@
         enabled: true
         daemon_reload: true
       become: true
+      changed_when: false
 
   rescue:
     - name: Handle failure
