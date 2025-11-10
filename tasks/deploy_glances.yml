@@ -14,7 +14,6 @@
         name: "{{ item }}"
         state: latest
       with_items: "{{ pipx_packages }}"
-      changed_when: false
       become: true
 
     - name: Copy service file
