@@ -33,6 +33,11 @@
         state: started
       become: true
 
+    - name: Enable Tailscale Autoupdate
+      ansible.builtin.command: tailscale set --auto-update
+      become: true
+      changed_when: false
+
     - name: Tailscale authentication
       vars:
         tailscale_authkey: !vault |
