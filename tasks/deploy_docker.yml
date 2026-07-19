@@ -38,6 +38,13 @@
         update_cache: true
       become: true
 
+    - name: Configure Docker daemon
+      ansible.builtin.copy:
+        src: files/docker_daemon.json
+        dest: /etc/docker/daemon.json
+        mode: "0644"
+      become: true
+
     - name: Create systemd override directory
       ansible.builtin.file:
         path: /etc/systemd/system/docker.service.d
