@@ -8,8 +8,8 @@ ADMIN="zivi56cb8u@pomail.net" # dev/sysadmin email ID
 df -P -h | awk 'NR>1 && $1!~/tmpfs|cdrom/ {print $5 " " $6}' | while read -r usep mountpoint;
 do
   case "$mountpoint" in
-    /mnt*|/media*|/run/media*)
-      # ignore mounted removable or media drives
+    /mnt*|/media*|/run/media*|/var/lib/docker|/var/lib/docker/*)
+      # ignore mounted removable, media drives, and docker storage mounts
       continue
       ;;
   esac
