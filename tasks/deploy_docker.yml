@@ -38,12 +38,6 @@
         update_cache: true
       become: true
 
-    - name: Remove Docker daemon
-      ansible.builtin.file:
-        path: /etc/docker/daemon.json
-        state: absent
-      become: true
-
     - name: Create systemd override directory
       ansible.builtin.file:
         path: /etc/systemd/system/docker.service.d
