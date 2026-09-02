@@ -1,9 +1,0 @@
-{
-  "log-driver": "syslog",
-  "log-opts": {
-    "syslog-address": "tcp://greylog.katoteros.org:518",
-    "syslog-format": "rfc5424",
-    "mode": "non-blocking",
-    "tag": "{{.ImageName}}||{{.Name}}||{{.ID}}"
-  }
-}

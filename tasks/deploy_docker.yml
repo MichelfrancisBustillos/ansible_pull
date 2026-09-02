@@ -38,11 +38,10 @@
         update_cache: true
       become: true
 
-    - name: Configure Docker daemon
-      ansible.builtin.copy:
-        src: files/docker_daemon.json
-        dest: /etc/docker/daemon.json
-        mode: "0644"
+    - name: Remove Docker daemon
+      ansible.builtin.file:
+        path: /etc/docker/daemon.json
+        state: absent
       become: true
 
     - name: Create systemd override directory
